@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>InnoLearn - Interactive Learning Platform</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="shared.css">
+</head>
+<body>
+
+  <!-- Header -->
+  <header>
+    <div class="header-container">
+      <a href="index.html" class="logo">
+        <i class="fas fa-graduation-cap"></i>
+        <span>InnoLearn</span>
+      </a>
+      <nav class="desktop-menu">
+        <ul>
+          <li><a href="index.html">Home</a></li>
+          <li><a href="courses.html">Courses</a></li>
+          <li><a href="chat.html">Chat</a></li>
+          <li><a href="progress.html">Progress</a></li>
+        </ul>
+      </nav>
+      <div class="user-actions">
+        <button class="btn btn-outline" onclick="window.location.href='signin.html'">Sign In</button>
+        <button class="btn" onclick="window.location.href='signup.html'">Sign Up</button>
+        <button class="theme-toggle" title="Toggle dark mode">
+          <i class="fas fa-moon"></i>
+        </button>
+      </div>
+      <button class="mobile-menu-btn">
+        <i class="fas fa-bars"></i>
+      </button>
+    </div>
+    <div class="mobile-menu">
+      <nav>
+        <ul>
+          <li><a href="index.html">Home</a></li>
+          <li><a href="courses.html">Courses</a></li>
+          <li><a href="chat.html">Chat</a></li>
+          <li><a href="progress.html">Progress</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Loader -->
+  <div class="loader">
+    <div class="spinner"></div>
+  </div>
+
+  <!-- Home Page -->
+  <div class="container">
+    <section class="hero">
+      <h1>Learn Without Limits</h1>
+      <p>Expand your career opportunities with our interactive courses and personalized learning paths.</p>
+      <div class="hero-buttons">
+        <a href="courses.html" class="btn btn-primary">Explore Courses</a>
+        <a href="chat.html" class="btn btn-outline">Try InnoBot</a>
+      </div>
+    </section>
+
+    <div class="section-title">
+      <h2>Featured Courses</h2>
+    </div>
+    
+    <div class="card-grid">
+      <div class="card">
+        <img src="https://images.unsplash.com/photo-1555066931-4365d14bab8c?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" alt="Python Programming" class="card-img">
+        <div class="card-content">
+          <h3>Python Programming Masterclass</h3>
+          <div class="card-meta">
+            <span><i class="far fa-clock"></i> 8h 45m</span>
+            <span><i class="fas fa-user-graduate"></i> Beginner</span>
+          </div>
+          <div class="rating">
+            <i class="fas fa-star"></i>
+            <i class="fas fa-star"></i>
+            <i class="fas fa-star"></i>
+            <i class="fas fa-star"></i>
+            <i class="fas fa-star-half-alt"></i>
+            <span>(1,245)</span>
+          </div>
+          <div class="progress-container">
+            <div class="progress-label">
+              <span>Progress</span>
+              <span>35%</span>
+            </div>
+            <div class="progress-bar">
+              <div class="progress-fill" style="width: 35%"></div>
+            </div>
+          </div>
+          <button class="btn btn-primary" onclick="window.location.href='course-detail.html'">Continue</button>
+        </div>
+      </div>
+      
+      <div class="card">
+        <img src="https://images.unsplash.com/photo-1633356122544-f134324a6cee?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" alt="AI Fundamentals" class="card-img">
+        <div class="card-content">
+          <h3>Artificial Intelligence Fundamentals</h3>
+          <div class="card-meta">
+            <span><i class="far fa-clock"></i> 6h 20m</span>
+            <span><i class="fas fa-user-graduate"></i> Intermediate</span>
+          </div>
+          <div class="rating">
+            <i class="fas fa-star"></i>
+            <i class="fas fa-star"></i>
+            <i class="fas fa-star"></i>
+            <i class="fas fa-star"></i>
+            <i class="far fa-star"></i>
+            <span>(892)</span>
+          </div>
+          <button class="btn btn-primary" onclick="window.location.href='course-detail.html'">Enroll Now</button>
+        </div>
+      </div>
+      
+      <div class="card">
+        <img src="https://images.unsplash.com/photo-1626785774573-4b799315345d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1471&q=80" alt="Web Design" class="card-img">
+        <div class="card-content">
+          <h3>Modern Web Design</h3>
+          <div class="card-meta">
+            <span><i class="far fa-clock"></i> 5h 10m</span>
+            <span><i class="fas fa-user-graduate"></i> Beginner</span>
+          </div>
+          <div class="rating">
+            <i class="fas fa-star"></i>
+            <i class="fas fa-star"></i>
+            <i class="fas fa-star"></i>
+            <i class="fas fa-star"></i>
+            <i class="fas fa-star"></i>
+            <span>(2,134)</span>
+          </div>
+          <button class="btn btn-primary" onclick="window.location.href='course-detail.html'">Enroll Now</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer>
+    <div class="footer-container">
+      <div class="footer-column">
+        <h3>InnoLearn</h3>
+        <p>Empowering learners worldwide with interactive and personalized education experiences.</p>
+        <div class="social-links">
+          <a href="#"><i class="fab fa-facebook-f"></i></a>
+          <a href="#"><i class="fab fa-twitter"></i></a>
+          <a href="#"><i class="fab fa-linkedin-in"></i></a>
+          <a href="#"><i class="fab fa-instagram"></i></a>
+        </div>
+      </div>
+      <div class="footer-column">
+        <h3>Company</h3>
+        <ul>
+          <li><a href="#">About Us</a></li>
+          <li><a href="#">Careers</a></li>
+          <li><a href="#">Blog</a></li>
+          <li><a href="#">Press</a></li>
+        </ul>
+      </div>
+      <div class="footer-column">
+        <h3>Resources</h3>
+        <ul>
+          <li><a href="#">Help Center</a></li>
+          <li><a href="#">Tutorials</a></li>
+          <li><a href="#">Community</a></li>
+          <li><a href="#">Webinars</a></li>
+        </ul>
+      </div>
+      <div class="footer-column">
+        <h3>Legal</h3>
+        <ul>
+          <li><a href="#">Terms of Service</a></li>
+          <li><a href="#">Privacy Policy</a></li>
+          <li><a href="#">Cookie Policy</a></li>
+          <li><a href="#">Accessibility</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="copyright">
+      &copy; 2025 InnoLearn, Inc. All rights reserved.
+    </div>
+  </footer>
+
+  <script src="scripts.js"></script>
+</body>
+</html>

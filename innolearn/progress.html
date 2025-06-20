@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>My Progress | InnoLearn</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="shared.css">
+</head>
+<body>
+
+  <!-- Header -->
+  <header>
+    <div class="header-container">
+      <div class="logo">
+        <i class="fas fa-graduation-cap"></i>
+        <span>InnoLearn</span>
+      </div>
+      <nav>
+        <ul>
+          <li><a href="index.html">Home</a></li>
+          <li><a href="courses.html">Courses</a></li>
+          <li><a href="chat.html">Chat</a></li>
+          <li><a href="progress.html">Progress</a></li>
+        </ul>
+      </nav>
+      <div class="user-actions">
+        <button class="btn btn-outline">Sign In</button>
+        <button class="btn">Sign Up</button>
+        <div class="theme-toggle" title="Toggle dark mode">
+          <i class="fas fa-moon"></i>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- Progress Page -->
+  <div class="container">
+    <div class="section-title">
+      <h2>My Learning Progress</h2>
+    </div>
+    
+    <div class="progress-chart">
+      <div class="chart" data-percent="75">
+        <svg viewBox="0 0 36 36">
+          <path d="M18 2.0845
+            a 15.9155 15.9155 0 0 1 0 31.831
+            a 15.9155 15.9155 0 0 1 0 -31.831"
+            fill="none"
+            stroke="#eee"
+            stroke-width="2"/>
+          <path d="M18 2.0845
+            a 15.9155 15.9155 0 0 1 0 31.831
+            a 15.9155 15.9155 0 0 1 0 -31.831"
+            fill="none"
+            stroke="url(#gradient)"
+            stroke-width="2"
+            stroke-dasharray="0, 100"/>
+        </svg>
+        <div class="percent">0%</div>
+      </div>
+      <div class="chart-info">
+        <h3>Monthly Learning Goal</h3>
+        <p>15h of learning this month</p>
+      </div>
+    </div>
+    
+    <div class="stats-container">
+      <div class="stat-card">
+        <i class="fas fa-trophy"></i>
+        <h3>1,250</h3>
+        <p>Learning Points</p>
+      </div>
+      <div class="stat-card">
+        <i class="fas fa-book-open"></i>
+        <h3>8</h3>
+        <p>Courses Enrolled</p>
+      </div>
+      <div class="stat-card">
+        <i class="fas fa-check-circle"></i>
+        <h3>3</h3>
+        <p>Courses Completed</p>
+      </div>
+      <div class="stat-card">
+        <i class="fas fa-fire"></i>
+        <h3>12</h3>
+        <p>Day Streak</p>
+      </div>
+    </div>
+    
+    <div class="section-title">
+      <h2>Leaderboard</h2>
+    </div>
+    
+    <div class="leaderboard">
+      <div class="leaderboard-item">
+        <div class="rank rank-1">1</div>
+        <div class="user-info">
+          <div class="avatar">A</div>
+          <div>
+            <div>Alice Johnson</div>
+            <div class="activity-date">Data Scientist</div>
+          </div>
+        </div>
+        <div class="points">1,420 pts</div>
+      </div>
+      <div class="leaderboard-item">
+        <div class="rank rank-2">2</div>
+        <div class="user-info">
+          <div class="avatar">B</div>
+          <div>
+            <div>Bob Smith</div>
+            <div class="activity-date">Web Developer</div>
+          </div>
+        </div>
+        <div class="points">1,380 pts</div>
+      </div>
+      <div class="leaderboard-item">
+        <div class="rank rank-3">3</div>
+        <div class="user-info">
+          <div class="avatar">Y</div>
+          <div>
+            <div>You</div>
+            <div class="activity-date">Software Engineer</div>
+          </div>
+        </div>
+        <div class="points">1,250 pts</div>
+      </div>
+      <div class="leaderboard-item">
+        <div class="rank">4</div>
+        <div class="user-info">
+          <div class="avatar">C</div>
+          <div>
+            <div>Chris Taylor</div>
+            <div class="activity-date">UX Designer</div>
+          </div>
+        </div>
+        <div class="points">1,180 pts</div>
+      </div>
+      <div class="leaderboard-item">
+        <div class="rank">5</div>
+        <div class="user-info">
+          <div class="avatar">D</div>
+          <div>
+            <div>Diana Chen</div>
+            <div class="activity-date">Student</div>
+          </div>
+        </div>
+        <div class="points">1,050 pts</div>
+      </div>
+    </div>
+    
+    <div class="section-title">
+      <h2>Recent Activity</h2>
+    </div>
+    
+    <div class="activity-list">
+      <div class="activity-item">
+        <div class="activity-icon">
+          <i class="fas fa-check"></i>
+        </div>
+        <div class="activity-details">
+          <div>Completed "Python Programming Masterclass"</div>
+          <div class="activity-date">Today, 10:45 AM</div>
+        </div>
+      </div>
+      <div class="activity-item">
+        <div class="activity-icon">
+          <i class="fas fa-medal"></i>
+        </div>
+        <div class="activity-details">
+          <div>Earned "Python Expert" badge</div>
+          <div class="activity-date">Today, 10:45 AM</div>
+        </div>
+      </div>
+      <div class="activity-item">
+        <div class="activity-icon">
+          <i class="fas fa-book"></i>
+        </div>
+        <div class="activity-details">
+          <div>Started "Data Science Essentials" course</div>
+          <div class="activity-date">Yesterday, 3:20 PM</div>
+        </div>
+      </div>
+      <div class="activity-item">
+        <div class="activity-icon">
+          <i class="fas fa-comment"></i>
+        </div>
+        <div class="activity-details">
+          <div>Asked question in "AI Fundamentals" discussion</div>
+          <div class="activity-date">June 15, 2025</div>
+        </div>
+      </div>
+      <div class="activity-item">
+        <div class="activity-icon">
+          <i class="fas fa-check"></i>
+        </div>
+        <div class="activity-details">
+          <div>Completed "HTML & CSS Basics" course</div>
+          <div class="activity-date">June 14, 2025</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer>
+    <div class="footer-container">
+      <div class="footer-column">
+        <h3>InnoLearn</h3>
+        <p>Empowering learners worldwide with interactive and personalized education experiences.</p>
+        <div class="social-links">
+          <a href="#"><i class="fab fa-facebook-f"></i></a>
+          <a href="#"><i class="fab fa-twitter"></i></a>
+          <a href="#"><i class="fab fa-linkedin-in"></i></a>
+          <a href="#"><i class="fab fa-instagram"></i></a>
+        </div>
+      </div>
+      <div class="footer-column">
+        <h3>Company</h3>
+        <ul>
+          <li><a href="#">About Us</a></li>
+          <li><a href="#">Careers</a></li>
+          <li><a href="#">Blog</a></li>
+          <li><a href="#">Press</a></li>
+        </ul>
+      </div>
+      <div class="footer-column">
+        <h3>Resources</h3>
+        <ul>
+          <li><a href="#">Help Center</a></li>
+          <li><a href="#">Tutorials</a></li>
+          <li><a href="#">Community</a></li>
+          <li><a href="#">Webinars</a></li>
+        </ul>
+      </div>
+      <div class="footer-column">
+        <h3>Legal</h3>
+        <ul>
+          <li><a href="#">Terms of Service</a></li>
+          <li><a href="#">Privacy Policy</a></li>
+          <li><a href="#">Cookie Policy</a></li>
+          <li><a href="#">Accessibility</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="copyright">
+      &copy; 2025 InnoLearn, Inc. All rights reserved.
+    </div>
+  </footer>
+
+  <script src="scripts.js"></script>
+</body>
+</html>

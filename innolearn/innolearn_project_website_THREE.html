@@ -1,0 +1,2516 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>InnoLearn - Interactive Learning Platform</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --primary: #FF7B54;
+      --primary-light: #FFB26B;
+      --secondary: #939B62;
+      --dark: #2C2C2C;
+      --light: #F8F7F2;
+      --gray: #E8E8E8;
+      --success: #4CAF50;
+      --info: #2196F3;
+      --error: #f44336;
+      --warning: #ff9800;
+    }
+    
+    /* Dark mode variables */
+    :root.dark-mode {
+      --dark: #F8F7F2;
+      --light: #121212;
+      --gray: #2d2d2d;
+      --error: #e53935;
+    }
+    
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      transition: background-color 0.3s ease, color 0.3s ease, transform 0.3s ease;
+    }
+    
+    body {
+      font-family: 'Poppins', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-color: var(--light);
+      color: var(--dark);
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+    
+    /* Header */
+    header {
+      background: linear-gradient(135deg, var(--primary), var(--primary-light));
+      color: white;
+      padding: 1rem 2rem;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+    
+    .header-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 1.5rem;
+      font-weight: 700;
+    }
+    
+    .logo i {
+      font-size: 1.8rem;
+    }
+    
+    nav ul {
+      display: flex;
+      list-style: none;
+      gap: 2rem;
+    }
+    
+    nav a {
+      color: white;
+      text-decoration: none;
+      font-weight: 500;
+      padding: 0.5rem 0;
+      position: relative;
+    }
+    
+    nav a:hover {
+      opacity: 0.9;
+    }
+    
+    nav a::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 0;
+      height: 2px;
+      background-color: white;
+      transition: width 0.3s ease;
+    }
+    
+    nav a:hover::after {
+      width: 100%;
+    }
+    
+    .user-actions {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+    
+    .theme-toggle {
+      cursor: pointer;
+      padding: 0.5rem;
+      margin-left: 1rem;
+      color: white;
+      font-size: 1.2rem;
+    }
+    
+    .user-actions .btn {
+      padding: 0.5rem 1rem;
+    }
+    
+    /* Main container */
+    .container {
+      max-width: 1200px;
+      margin: 2rem auto;
+      padding: 0 2rem;
+      min-height: 80vh;
+    }
+    
+    /* Hero section */
+    .hero {
+      background: linear-gradient(rgba(255, 123, 84, 0.9), rgba(255, 178, 107, 0.9)), 
+                  url('https://images.unsplash.com/photo-1522202176988-66273c2fd55f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1471&q=80');
+      background-size: cover;
+      background-position: center;
+      color: white;
+      padding: 4rem 2rem;
+      border-radius: 12px;
+      text-align: center;
+      margin-bottom: 3rem;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.1);
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .hero::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(45deg, rgba(255,123,84,0.8), rgba(255,178,107,0.8));
+      z-index: 0;
+    }
+    
+    .hero-content {
+      position: relative;
+      z-index: 1;
+      max-width: 800px;
+      margin: 0 auto;
+    }
+    
+    .hero h1 {
+      font-size: 3rem;
+      margin-bottom: 1rem;
+      text-shadow: 0 2px 4px rgba(0,0,0,0.2);
+    }
+    
+    .hero p {
+      font-size: 1.2rem;
+      margin: 0 auto 2rem;
+      max-width: 700px;
+      text-shadow: 0 1px 2px rgba(0,0,0,0.2);
+    }
+    
+    /* Buttons */
+    .btn {
+      display: inline-block;
+      background-color: white;
+      color: var(--primary);
+      padding: 0.8rem 1.8rem;
+      border-radius: 50px;
+      text-decoration: none;
+      font-weight: 600;
+      border: none;
+      cursor: pointer;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+      transition: all 0.3s ease;
+    }
+    
+    .btn:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 6px 12px rgba(0,0,0,0.15);
+    }
+    
+    .btn:active {
+      transform: scale(0.98);
+    }
+    
+    .btn-primary {
+      background-color: var(--primary);
+      color: white;
+    }
+    
+    .btn-outline {
+      background-color: transparent;
+      color: white;
+      border: 2px solid white;
+    }
+    
+    .btn-outline:hover {
+      background-color: white;
+      color: var(--primary);
+    }
+    
+    .btn-secondary {
+      background-color: var(--secondary);
+      color: white;
+    }
+    
+    .btn-info {
+      background-color: var(--info);
+      color: white;
+    }
+    
+    .btn-google {
+      background-color: #4285F4;
+      color: white;
+    }
+    
+    .btn-facebook {
+      background-color: #3b5998;
+      color: white;
+    }
+    
+    .btn-github {
+      background-color: #333;
+      color: white;
+    }
+    
+    /* Sections */
+    .section-title {
+      text-align: center;
+      margin-bottom: 2rem;
+      position: relative;
+    }
+    
+    .section-title h2 {
+      font-size: 2.2rem;
+      display: inline-block;
+      background: linear-gradient(to right, var(--primary), var(--primary-light));
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      margin-bottom: 0.5rem;
+    }
+    
+    .section-title::after {
+      content: '';
+      display: block;
+      width: 80px;
+      height: 4px;
+      background: linear-gradient(to right, var(--primary), var(--primary-light));
+      margin: 0.5rem auto 0;
+      border-radius: 2px;
+    }
+    
+    /* Cards */
+    .card-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 2rem;
+      margin-bottom: 3rem;
+    }
+    
+    .card {
+      background-color: white;
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 6px 12px rgba(0,0,0,0.05);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      position: relative;
+    }
+    
+    .card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 12px 24px rgba(0,0,0,0.1);
+    }
+    
+    .card-img {
+      width: 100%;
+      height: 180px;
+      object-fit: cover;
+      transition: transform 0.3s ease;
+    }
+    
+    .card-content {
+      padding: 1.5rem;
+    }
+    
+    .card h3 {
+      margin-bottom: 0.5rem;
+      font-size: 1.2rem;
+    }
+    
+    .card-meta {
+      display: flex;
+      justify-content: space-between;
+      color: #666;
+      font-size: 0.9rem;
+      margin-bottom: 1rem;
+    }
+    
+    .rating {
+      color: var(--primary-light);
+      margin-bottom: 1rem;
+    }
+    
+    .progress-container {
+      margin-bottom: 1rem;
+    }
+    
+    .progress-label {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 0.3rem;
+      font-size: 0.9rem;
+    }
+    
+    .progress-bar {
+      height: 8px;
+      background-color: var(--gray);
+      border-radius: 4px;
+      overflow: hidden;
+    }
+    
+    .progress-fill {
+      height: 100%;
+      background: linear-gradient(to right, var(--primary), var(--primary-light));
+      border-radius: 4px;
+      width: 70%;
+    }
+    
+    /* Search */
+    .search-container {
+      display: flex;
+      margin-bottom: 2rem;
+      max-width: 800px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    
+    .search-bar {
+      flex: 1;
+      padding: 0.8rem 1.2rem;
+      border: 2px solid var(--gray);
+      border-radius: 50px 0 0 50px;
+      font-size: 1rem;
+      outline: none;
+      transition: border-color 0.3s ease;
+      background-color: var(--light);
+      color: var(--dark);
+    }
+    
+    .search-bar:focus {
+      border-color: var(--primary);
+    }
+    
+    .search-btn {
+      background-color: var(--primary);
+      color: white;
+      border: none;
+      padding: 0 1.5rem;
+      border-radius: 0 50px 50px 0;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+    
+    .search-btn:hover {
+      background-color: var(--primary-light);
+    }
+    
+    /* Filters */
+    .filter-container {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.8rem;
+      justify-content: center;
+      margin-bottom: 2rem;
+    }
+    
+    .filter-btn {
+      background-color: white;
+      color: var(--dark);
+      border: 1px solid var(--gray);
+      padding: 0.5rem 1.2rem;
+      border-radius: 50px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      font-size: 0.9rem;
+    }
+    
+    .filter-btn:hover, .filter-btn.active {
+      background-color: var(--primary);
+      color: white;
+      border-color: var(--primary);
+    }
+    
+    /* Chat */
+    .chat-container {
+      background-color: white;
+      border-radius: 12px;
+      box-shadow: 0 6px 12px rgba(0,0,0,0.05);
+      overflow: hidden;
+      margin-bottom: 2rem;
+    }
+    
+    .chat-header {
+      background: linear-gradient(135deg, var(--primary), var(--primary-light));
+      color: white;
+      padding: 1rem;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    
+    .chat-header i {
+      font-size: 1.2rem;
+    }
+    
+    .chat-box {
+      height: 400px;
+      padding: 1.5rem;
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+      background-color: var(--light);
+    }
+    
+    .message {
+      max-width: 70%;
+      padding: 0.8rem 1.2rem;
+      border-radius: 12px;
+      line-height: 1.4;
+      animation: fadeIn 0.3s ease;
+    }
+    
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    
+    .bot-message {
+      background-color: var(--gray);
+      align-self: flex-start;
+      border-bottom-left-radius: 4px;
+    }
+    
+    .user-message {
+      background-color: var(--primary);
+      color: white;
+      align-self: flex-end;
+      border-bottom-right-radius: 4px;
+    }
+    
+    .typing-indicator {
+      display: flex;
+      gap: 4px;
+      padding: 12px 16px;
+    }
+    
+    .typing-indicator span {
+      width: 8px;
+      height: 8px;
+      background: #666;
+      border-radius: 50%;
+      opacity: 0.4;
+      animation: typing 1s infinite ease-in-out;
+    }
+    
+    .typing-indicator span:nth-child(2) {
+      animation-delay: 0.2s;
+    }
+    
+    .typing-indicator span:nth-child(3) {
+      animation-delay: 0.4s;
+    }
+    
+    @keyframes typing {
+      0%, 100% { opacity: 0.4; transform: translateY(0); }
+      50% { opacity: 1; transform: translateY(-3px); }
+    }
+    
+    .chat-input-container {
+      display: flex;
+      padding: 1rem;
+      border-top: 1px solid var(--gray);
+      background-color: white;
+    }
+    
+    .chat-input {
+      flex: 1;
+      padding: 0.8rem 1.2rem;
+      border: 1px solid var(--gray);
+      border-radius: 50px;
+      outline: none;
+      transition: border-color 0.3s ease;
+      background-color: var(--light);
+      color: var(--dark);
+    }
+    
+    .chat-input:focus {
+      border-color: var(--primary);
+    }
+    
+    .send-btn {
+      background-color: var(--primary);
+      color: white;
+      border: none;
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      margin-left: 0.8rem;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    
+    .send-btn:hover {
+      background-color: var(--primary-light);
+    }
+    
+    /* Quick replies */
+    .quick-replies {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.8rem;
+      margin-bottom: 2rem;
+      justify-content: center;
+    }
+    
+    /* Stats */
+    .stats-container {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 2rem;
+      margin-bottom: 3rem;
+    }
+    
+    .stat-card {
+      background-color: white;
+      padding: 1.5rem;
+      border-radius: 12px;
+      box-shadow: 0 6px 12px rgba(0,0,0,0.05);
+      text-align: center;
+      transition: transform 0.3s ease;
+    }
+    
+    .stat-card:hover {
+      transform: translateY(-5px);
+    }
+    
+    .stat-card i {
+      font-size: 2.5rem;
+      color: var(--primary);
+      margin-bottom: 1rem;
+    }
+    
+    .stat-card h3 {
+      font-size: 2rem;
+      margin-bottom: 0.5rem;
+      color: var(--primary);
+    }
+    
+    /* Progress chart */
+    .progress-chart {
+      display: flex;
+      align-items: center;
+      gap: 2rem;
+      background: white;
+      padding: 2rem;
+      border-radius: 12px;
+      box-shadow: 0 6px 12px rgba(0,0,0,0.05);
+      margin-bottom: 2rem;
+    }
+    
+    .chart {
+      position: relative;
+      width: 120px;
+      height: 120px;
+    }
+    
+    .chart svg {
+      transform: rotate(-90deg);
+    }
+    
+    .percent {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      font-size: 1.5rem;
+      font-weight: bold;
+      color: var(--primary);
+    }
+    
+    /* Leaderboard */
+    .leaderboard {
+      background-color: white;
+      border-radius: 12px;
+      box-shadow: 0 6px 12px rgba(0,0,0,0.05);
+      padding: 1.5rem;
+      margin-bottom: 3rem;
+    }
+    
+    .leaderboard-item {
+      display: flex;
+      align-items: center;
+      padding: 1rem 0;
+      border-bottom: 1px solid var(--gray);
+    }
+    
+    .leaderboard-item:last-child {
+      border-bottom: none;
+    }
+    
+    .rank {
+      font-weight: bold;
+      width: 30px;
+      text-align: center;
+      margin-right: 1rem;
+    }
+    
+    .rank-1 {
+      color: gold;
+      font-size: 1.2rem;
+    }
+    
+    .rank-2 {
+      color: silver;
+      font-size: 1.1rem;
+    }
+    
+    .rank-3 {
+      color: #cd7f32; /* bronze */
+    }
+    
+    .user-info {
+      flex: 1;
+      display: flex;
+      align-items: center;
+    }
+    
+    .avatar {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background-color: var(--gray);
+      margin-right: 1rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--dark);
+      font-weight: bold;
+    }
+    
+    .points {
+      font-weight: bold;
+      color: var(--primary);
+    }
+    
+    /* Activity */
+    .activity-list {
+      background-color: white;
+      border-radius: 12px;
+      box-shadow: 0 6px 12px rgba(0,0,0,0.05);
+      padding: 1.5rem;
+    }
+    
+    .activity-item {
+      display: flex;
+      align-items: center;
+      padding: 1rem 0;
+      border-bottom: 1px solid var(--gray);
+    }
+    
+    .activity-item:last-child {
+      border-bottom: none;
+    }
+    
+    .activity-icon {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background-color: var(--primary-light);
+      color: white;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-right: 1rem;
+      flex-shrink: 0;
+    }
+    
+    .activity-details {
+      flex: 1;
+    }
+    
+    .activity-date {
+      color: #666;
+      font-size: 0.9rem;
+    }
+    
+    /* Profile Page */
+    .profile-container {
+      display: flex;
+      gap: 2rem;
+      margin-bottom: 2rem;
+    }
+    
+    .profile-sidebar {
+      flex: 0 0 250px;
+      background: white;
+      border-radius: 12px;
+      padding: 1.5rem;
+      box-shadow: 0 6px 12px rgba(0,0,0,0.05);
+      height: fit-content;
+    }
+    
+    .profile-main {
+      flex: 1;
+    }
+    
+    .profile-header {
+      display: flex;
+      align-items: center;
+      gap: 1.5rem;
+      margin-bottom: 2rem;
+    }
+    
+    .profile-avatar {
+      width: 100px;
+      height: 100px;
+      border-radius: 50%;
+      background-color: var(--gray);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 2.5rem;
+      color: var(--primary);
+    }
+    
+    .profile-info h2 {
+      margin-bottom: 0.5rem;
+    }
+    
+    .profile-info p {
+      color: #666;
+    }
+    
+    .badges-container {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(80px, 1fr));
+      gap: 1rem;
+      margin-top: 2rem;
+    }
+    
+    .badge {
+      background: linear-gradient(135deg, var(--primary), var(--primary-light));
+      width: 80px;
+      height: 80px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-size: 1.5rem;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    }
+    
+    .badge i {
+      font-size: 2rem;
+    }
+    
+    /* Learning Path */
+    .path-container {
+      background: white;
+      border-radius: 12px;
+      padding: 1.5rem;
+      box-shadow: 0 6px 12px rgba(0,0,0,0.05);
+      margin-bottom: 2rem;
+    }
+    
+    .path-step {
+      display: flex;
+      padding: 1rem 0;
+      border-bottom: 1px solid var(--gray);
+      align-items: center;
+    }
+    
+    .path-step:last-child {
+      border-bottom: none;
+    }
+    
+    .step-number {
+      width: 30px;
+      height: 30px;
+      border-radius: 50%;
+      background-color: var(--primary-light);
+      color: white;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-right: 1rem;
+      flex-shrink: 0;
+    }
+    
+    .step-content {
+      flex: 1;
+    }
+    
+    .step-status {
+      color: var(--success);
+      font-weight: bold;
+    }
+    
+    /* Page Navigation */
+    .page {
+      display: none;
+    }
+    
+    .page.active {
+      display: block;
+    }
+    
+    /* Auth Modals */
+    .modal-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0,0,0,0.7);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      z-index: 1000;
+      opacity: 0;
+      visibility: hidden;
+      transition: all 0.3s ease;
+    }
+    
+    .modal-overlay.active {
+      opacity: 1;
+      visibility: visible;
+    }
+    
+    .auth-modal {
+      background-color: white;
+      border-radius: 12px;
+      box-shadow: 0 12px 30px rgba(0,0,0,0.25);
+      width: 100%;
+      max-width: 450px;
+      overflow: hidden;
+      transform: translateY(30px);
+      transition: transform 0.4s ease, opacity 0.4s ease;
+      opacity: 0;
+    }
+    
+    .modal-overlay.active .auth-modal {
+      transform: translateY(0);
+      opacity: 1;
+    }
+    
+    .modal-header {
+      background: linear-gradient(135deg, var(--primary), var(--primary-light));
+      color: white;
+      padding: 1.5rem;
+      text-align: center;
+      position: relative;
+    }
+    
+    .close-modal {
+      position: absolute;
+      top: 1rem;
+      right: 1rem;
+      background: none;
+      border: none;
+      color: white;
+      font-size: 1.5rem;
+      cursor: pointer;
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: background-color 0.3s ease;
+    }
+    
+    .close-modal:hover {
+      background-color: rgba(255,255,255,0.2);
+    }
+    
+    .modal-body {
+      padding: 2rem;
+    }
+    
+    .form-group {
+      margin-bottom: 1.5rem;
+      position: relative;
+    }
+    
+    .form-group label {
+      display: block;
+      margin-bottom: 0.5rem;
+      font-weight: 500;
+      color: #444;
+    }
+    
+    .form-control {
+      width: 100%;
+      padding: 0.8rem 1rem;
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      font-size: 1rem;
+      transition: border-color 0.3s ease;
+      background-color: var(--light);
+      color: var(--dark);
+    }
+    
+    .form-control:focus {
+      border-color: var(--primary);
+      outline: none;
+      box-shadow: 0 0 0 3px rgba(255,123,84,0.2);
+    }
+    
+    .password-container {
+      position: relative;
+    }
+    
+    .toggle-password {
+      position: absolute;
+      right: 12px;
+      top: 50%;
+      transform: translateY(-50%);
+      background: none;
+      border: none;
+      color: #777;
+      cursor: pointer;
+      font-size: 1.1rem;
+    }
+    
+    .form-footer {
+      margin-top: 1.5rem;
+    }
+    
+    .remember-forgot {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 1.5rem;
+    }
+    
+    .remember-me {
+      display: flex;
+      align-items: center;
+    }
+    
+    .remember-me input {
+      margin-right: 8px;
+    }
+    
+    .forgot-password {
+      color: var(--primary);
+      text-decoration: none;
+      font-size: 0.9rem;
+    }
+    
+    .forgot-password:hover {
+      text-decoration: underline;
+    }
+    
+    .btn-block {
+      display: block;
+      width: 100%;
+      text-align: center;
+      padding: 0.9rem;
+      font-size: 1rem;
+    }
+    
+    .social-login {
+      margin: 1.5rem 0;
+      text-align: center;
+      position: relative;
+    }
+    
+    .social-login::before,
+    .social-login::after {
+      content: '';
+      position: absolute;
+      top: 50%;
+      height: 1px;
+      width: calc(50% - 50px);
+      background-color: #ddd;
+    }
+    
+    .social-login::before {
+      left: 0;
+    }
+    
+    .social-login::after {
+      right: 0;
+    }
+    
+    .social-login p {
+      display: inline-block;
+      background: white;
+      padding: 0 1rem;
+      position: relative;
+      z-index: 1;
+      color: #777;
+      font-size: 0.9rem;
+    }
+    
+    .social-buttons {
+      display: flex;
+      gap: 1rem;
+      margin-top: 1rem;
+    }
+    
+    .social-btn {
+      flex: 1;
+      padding: 0.7rem;
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1rem;
+      font-weight: 500;
+      transition: all 0.3s ease;
+    }
+    
+    .social-btn i {
+      margin-right: 8px;
+      font-size: 1.2rem;
+    }
+    
+    .social-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+    }
+    
+    .switch-auth {
+      text-align: center;
+      margin-top: 1.5rem;
+      color: #555;
+      font-size: 0.95rem;
+    }
+    
+    .switch-auth a {
+      color: var(--primary);
+      text-decoration: none;
+      font-weight: 500;
+      margin-left: 5px;
+    }
+    
+    .switch-auth a:hover {
+      text-decoration: underline;
+    }
+    
+    .error-message {
+      color: var(--error);
+      font-size: 0.85rem;
+      margin-top: 0.5rem;
+      display: none;
+    }
+    
+    .password-strength {
+      height: 5px;
+      border-radius: 3px;
+      margin-top: 8px;
+      background-color: #eee;
+      overflow: hidden;
+      position: relative;
+    }
+    
+    .password-strength-fill {
+      position: absolute;
+      top: 0;
+      left: 0;
+      height: 100%;
+      width: 0;
+      transition: width 0.3s ease;
+    }
+    
+    .strength-text {
+      font-size: 0.8rem;
+      margin-top: 5px;
+      color: #777;
+    }
+    
+    .success-message {
+      background-color: rgba(76, 175, 80, 0.1);
+      color: var(--success);
+      padding: 1rem;
+      border-radius: 8px;
+      text-align: center;
+      margin-bottom: 1.5rem;
+      display: none;
+    }
+    
+    /* Footer */
+    footer {
+      background-color: var(--dark);
+      color: white;
+      padding: 3rem 2rem;
+      margin-top: 3rem;
+    }
+    
+    .footer-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 2rem;
+    }
+    
+    .footer-column h3 {
+      color: var(--primary-light);
+      margin-bottom: 1.5rem;
+      font-size: 1.2rem;
+    }
+    
+    .footer-column ul {
+      list-style: none;
+    }
+    
+    .footer-column li {
+      margin-bottom: 0.8rem;
+    }
+    
+    .footer-column a {
+      color: #ccc;
+      text-decoration: none;
+      transition: color 0.3s ease;
+    }
+    
+    .footer-column a:hover {
+      color: white;
+    }
+    
+    .social-links {
+      display: flex;
+      gap: 1rem;
+      margin-top: 1rem;
+    }
+    
+    .social-links a {
+      color: white;
+      background-color: rgba(255,255,255,0.1);
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: background-color 0.3s ease;
+    }
+    
+    .social-links a:hover {
+      background-color: var(--primary);
+    }
+    
+    .copyright {
+      text-align: center;
+      margin-top: 2rem;
+      padding-top: 2rem;
+      border-top: 1px solid rgba(255,255,255,0.1);
+      color: #aaa;
+      font-size: 0.9rem;
+    }
+    
+    /* Responsive design */
+    @media (max-width: 768px) {
+      .header-container {
+        flex-direction: column;
+        gap: 1rem;
+      }
+      
+      nav ul {
+        gap: 1rem;
+        flex-wrap: wrap;
+        justify-content: center;
+      }
+      
+      .hero {
+        padding: 2rem 1rem;
+      }
+      
+      .hero h1 {
+        font-size: 2.2rem;
+      }
+      
+      .social-buttons {
+        flex-direction: column;
+      }
+      
+      .profile-container {
+        flex-direction: column;
+      }
+      
+      .profile-sidebar {
+        flex: 1;
+      }
+    }
+    
+    @media (max-width: 480px) {
+      .auth-modal {
+        margin: 0 1rem;
+      }
+      
+      .remember-forgot {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 1rem;
+      }
+    }
+    
+    /* Dark mode specific styles */
+    body.dark-mode {
+      background-color: #121212;
+      color: #f0f0f0;
+    }
+    
+    .dark-mode .card,
+    .dark-mode .leaderboard,
+    .dark-mode .activity-list,
+    .dark-mode .stat-card,
+    .dark-mode .progress-chart,
+    .dark-mode .chat-container,
+    .dark-mode .profile-sidebar,
+    .dark-mode .path-container {
+      background-color: #1e1e1e;
+      color: #f0f0f0;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+    }
+    
+    .dark-mode .filter-btn,
+    .dark-mode .search-bar,
+    .dark-mode .chat-input {
+      background-color: #2d2d2d;
+      color: #f0f0f0;
+      border-color: #444;
+    }
+    
+    .dark-mode .card-content {
+      background-color: #1e1e1e;
+    }
+    
+    .dark-mode .card-meta,
+    .dark-mode .activity-date {
+      color: #aaa;
+    }
+    
+    .dark-mode .auth-modal {
+      background-color: #1e1e1e;
+    }
+    
+    .dark-mode .form-control {
+      background-color: #2d2d2d;
+      border-color: #444;
+      color: #f0f0f0;
+    }
+    
+    .dark-mode .form-group label {
+      color: #ddd;
+    }
+    
+    .dark-mode .social-login p {
+      background-color: #1e1e1e;
+      color: #aaa;
+    }
+    
+    .dark-mode .social-login::before,
+    .dark-mode .social-login::after {
+      background-color: #444;
+    }
+    
+    .dark-mode .switch-auth {
+      color: #aaa;
+    }
+    
+    .dark-mode .password-strength {
+      background-color: #444;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Header with Sign In Button -->
+  <header>
+    <div class="header-container">
+      <div class="logo">
+        <i class="fas fa-graduation-cap"></i>
+        <span>InnoLearn</span>
+      </div>
+      <nav>
+        <ul>
+          <li><a href="#" class="nav-link" data-page="home">Home</a></li>
+          <li><a href="#" class="nav-link" data-page="courses">Courses</a></li>
+          <li><a href="#" class="nav-link" data-page="chat">Chat</a></li>
+          <li><a href="#" class="nav-link" data-page="progress">Progress</a></li>
+          <li><a href="#" class="nav-link" data-page="profile">Profile</a></li>
+        </ul>
+      </nav>
+      <div class="user-actions">
+        <button class="btn btn-outline" id="signin-btn">Sign In</button>
+        <button class="btn" id="signup-btn">Sign Up</button>
+        <div class="theme-toggle" title="Toggle dark mode">
+          <i class="fas fa-moon"></i>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- Pages -->
+  <div class="pages-container">
+    <!-- Home Page -->
+    <div class="page active" id="home-page">
+      <div class="container">
+        <section class="hero">
+          <h1>Learn Without Limits</h1>
+          <p>Expand your career opportunities with our interactive courses and personalized learning paths.</p>
+          <div>
+            <a href="#" class="btn btn-primary nav-link" data-page="courses">Explore Courses</a>
+            <a href="#" class="btn btn-outline nav-link" data-page="chat">Try InnoBot</a>
+          </div>
+        </section>
+
+        <div class="section-title">
+          <h2>Continue Learning</h2>
+        </div>
+        
+        <div class="card-grid">
+          <div class="card">
+            <img src="https://images.unsplash.com/photo-1555066931-4365d14bab8c?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" alt="Coding Course" class="card-img">
+            <div class="card-content">
+              <h3>Python Programming Masterclass</h3>
+              <div class="card-meta">
+                <span><i class="far fa-clock"></i> 8h 45m</span>
+                <span><i class="fas fa-user-graduate"></i> Beginner</span>
+              </div>
+              <div class="rating">
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star-half-alt"></i>
+                <span>(1,245)</span>
+              </div>
+              <div class="progress-container">
+                <div class="progress-label">
+                  <span>Progress</span>
+                  <span>35%</span>
+                </div>
+                <div class="progress-bar">
+                  <div class="progress-fill" style="width: 35%"></div>
+                </div>
+              </div>
+              <button class="btn btn-primary">Continue</button>
+            </div>
+          </div>
+          
+          <div class="card">
+            <img src="https://images.unsplash.com/photo-1626785774573-4b799315345d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1471&q=80" alt="Web Design Course" class="card-img">
+            <div class="card-content">
+              <h3>Modern Web Design</h3>
+              <div class="card-meta">
+                <span><i class="far fa-clock"></i> 5h 10m</span>
+                <span><i class="fas fa-user-graduate"></i> Beginner</span>
+              </div>
+              <div class="rating">
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <span>(2,134)</span>
+              </div>
+              <div class="progress-container">
+                <div class="progress-label">
+                  <span>Progress</span>
+                  <span>15%</span>
+                </div>
+                <div class="progress-bar">
+                  <div class="progress-fill" style="width: 15%"></div>
+                </div>
+              </div>
+              <button class="btn btn-primary">Continue</button>
+            </div>
+          </div>
+          
+          <div class="card">
+            <img src="https://images.unsplash.com/photo-1633356122544-f134324a6cee?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" alt="AI Course" class="card-img">
+            <div class="card-content">
+              <h3>Artificial Intelligence Fundamentals</h3>
+              <div class="card-meta">
+                <span><i class="far fa-clock"></i> 6h 20m</span>
+                <span><i class="fas fa-user-graduate"></i> Intermediate</span>
+              </div>
+              <div class="rating">
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="far fa-star"></i>
+                <span>(892)</span>
+              </div>
+              <div class="progress-container">
+                <div class="progress-label">
+                  <span>Progress</span>
+                  <span>5%</span>
+                </div>
+                <div class="progress-bar">
+                  <div class="progress-fill" style="width: 5%"></div>
+                </div>
+              </div>
+              <button class="btn btn-primary">Continue</button>
+            </div>
+          </div>
+        </div>
+        
+        <div class="section-title">
+          <h2>Recommended For You</h2>
+        </div>
+        
+        <div class="card-grid">
+          <div class="card">
+            <img src="https://images.unsplash.com/photo-1547658719-da2b51169166?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1528&q=80" alt="JavaScript Course" class="card-img">
+            <div class="card-content">
+              <h3>JavaScript for Beginners</h3>
+              <div class="card-meta">
+                <span><i class="far fa-clock"></i> 7h 15m</span>
+                <span><i class="fas fa-user-graduate"></i> Beginner</span>
+              </div>
+              <div class="rating">
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star-half-alt"></i>
+                <span>(1,876)</span>
+              </div>
+              <button class="btn btn-primary">Enroll Now</button>
+            </div>
+          </div>
+          
+          <div class="card">
+            <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" alt="Data Science Course" class="card-img">
+            <div class="card-content">
+              <h3>Data Science Essentials</h3>
+              <div class="card-meta">
+                <span><i class="far fa-clock"></i> 10h 30m</span>
+                <span><i class="fas fa-user-graduate"></i> Intermediate</span>
+              </div>
+              <div class="rating">
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="far fa-star"></i>
+                <span>(1,023)</span>
+              </div>
+              <button class="btn btn-primary">Enroll Now</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Courses Page -->
+    <div class="page" id="courses-page">
+      <div class="container">
+        <div class="section-title">
+          <h2>Explore Our Courses</h2>
+        </div>
+        
+        <div class="search-container">
+          <input type="text" class="search-bar" placeholder="Search for courses, topics, or instructors...">
+          <button class="search-btn"><i class="fas fa-search"></i></button>
+        </div>
+        
+        <div class="filter-container">
+          <button class="filter-btn active">All</button>
+          <button class="filter-btn">Beginner</button>
+          <button class="filter-btn">Intermediate</button>
+          <button class="filter-btn">Advanced</button>
+          <button class="filter-btn">Programming</button>
+          <button class="filter-btn">Data Science</button>
+          <button class="filter-btn">Design</button>
+          <button class="filter-btn">Business</button>
+        </div>
+        
+        <div class="card-grid">
+          <div class="card">
+            <img src="https://images.unsplash.com/photo-1555066931-4365d14bab8c?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" alt="Coding Course" class="card-img">
+            <div class="card-content">
+              <h3>Python Programming Masterclass</h3>
+              <div class="card-meta">
+                <span><i class="far fa-clock"></i> 8h 45m</span>
+                <span><i class="fas fa-user-graduate"></i> Beginner</span>
+              </div>
+              <div class="rating">
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star-half-alt"></i>
+                <span>(1,245)</span>
+              </div>
+              <button class="btn btn-primary">Enroll Now</button>
+            </div>
+          </div>
+          
+          <div class="card">
+            <img src="https://images.unsplash.com/photo-1626785774573-4b799315345d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1471&q=80" alt="Web Design Course" class="card-img">
+            <div class="card-content">
+              <h3>Modern Web Design</h3>
+              <div class="card-meta">
+                <span><i class="far fa-clock"></i> 5h 10m</span>
+                <span><i class="fas fa-user-graduate"></i> Beginner</span>
+              </div>
+              <div class="rating">
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <span>(2,134)</span>
+              </div>
+              <button class="btn btn-primary">Enroll Now</button>
+            </div>
+          </div>
+          
+          <div class="card">
+            <img src="https://images.unsplash.com/photo-1633356122544-f134324a6cee?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" alt="AI Course" class="card-img">
+            <div class="card-content">
+              <h3>Artificial Intelligence Fundamentals</h3>
+              <div class="card-meta">
+                <span><i class="far fa-clock"></i> 6h 20m</span>
+                <span><i class="fas fa-user-graduate"></i> Intermediate</span>
+              </div>
+              <div class="rating">
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="far fa-star"></i>
+                <span>(892)</span>
+              </div>
+              <button class="btn btn-primary">Enroll Now</button>
+            </div>
+          </div>
+          
+          <div class="card">
+            <img src="https://images.unsplash.com/photo-1624953587687-daf255b6b80a?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1374&q=80" alt="Mobile App Course" class="card-img">
+            <div class="card-content">
+              <h3>Mobile App Development</h3>
+              <div class="card-meta">
+                <span><i class="far fa-clock"></i> 9h 45m</span>
+                <span><i class="fas fa-user-graduate"></i> Advanced</span>
+              </div>
+              <div class="rating">
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <span>(756)</span>
+              </div>
+              <button class="btn btn-primary">Enroll Now</button>
+            </div>
+          </div>
+          
+          <div class="card">
+            <img src="https://images.unsplash.com/photo-1467232004584-a241de8bcf5d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1469&q=80" alt="Cloud Computing Course" class="card-img">
+            <div class="card-content">
+              <h3>Cloud Computing Basics</h3>
+              <div class="card-meta">
+                <span><i class="far fa-clock"></i> 4h 20m</span>
+                <span><i class="fas fa-user-graduate"></i> Beginner</span>
+              </div>
+              <div class="rating">
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star-half-alt"></i>
+                <i class="far fa-star"></i>
+                <span>(542)</span>
+              </div>
+              <button class="btn btn-primary">Enroll Now</button>
+            </div>
+          </div>
+          
+          <div class="card">
+            <img src="https://images.unsplash.com/photo-1542744173-8e7e53415bb0?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" alt="Business Course" class="card-img">
+            <div class="card-content">
+              <h3>Digital Marketing Strategy</h3>
+              <div class="card-meta">
+                <span><i class="far fa-clock"></i> 5h 50m</span>
+                <span><i class="fas fa-user-graduate"></i> Intermediate</span>
+              </div>
+              <div class="rating">
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="far fa-star"></i>
+                <span>(1,342)</span>
+              </div>
+              <button class="btn btn-primary">Enroll Now</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Chat Page -->
+    <div class="page" id="chat-page">
+      <div class="container">
+        <div class="section-title">
+          <h2>Chat with InnoBot</h2>
+        </div>
+        
+        <div class="chat-container">
+          <div class="chat-header">
+            <i class="fas fa-robot"></i>
+            <h3>InnoBot Assistant</h3>
+          </div>
+          <div class="chat-box">
+            <div class="message bot-message">
+              Hello! I'm InnoBot, your AI learning assistant. How can I help you today?
+            </div>
+            <div class="message user-message">
+              Can you explain machine learning concepts?
+            </div>
+            <div class="message bot-message">
+              Of course! Machine learning is a subset of artificial intelligence that focuses on building systems that learn from data. Would you like me to start with the basics or focus on a specific area like neural networks?
+            </div>
+            <div class="message user-message">
+              Start with the basics, please.
+            </div>
+            <div class="message bot-message">
+              Great! Machine learning involves training algorithms to recognize patterns in data. The three main types are supervised learning, unsupervised learning, and reinforcement learning...
+            </div>
+            <div class="message bot-message typing">
+              <div class="typing-indicator">
+                <span></span>
+                <span></span>
+                <span></span>
+              </div>
+            </div>
+          </div>
+          <div class="chat-input-container">
+            <input type="text" class="chat-input" placeholder="Type your message here...">
+            <button class="send-btn"><i class="fas fa-paper-plane"></i></button>
+          </div>
+        </div>
+        
+        <div class="quick-replies">
+          <button class="filter-btn">Explain machine learning</button>
+          <button class="filter-btn">Quiz me on Python</button>
+          <button class="filter-btn">Help with my code</button>
+          <button class="filter-btn">Suggest learning path</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Progress Page -->
+    <div class="page" id="progress-page">
+      <div class="container">
+        <div class="section-title">
+          <h2>My Learning Progress</h2>
+        </div>
+        
+        <div class="progress-chart">
+          <div class="chart" data-percent="75">
+            <svg viewBox="0 0 36 36">
+              <path d="M18 2.0845
+                a 15.9155 15.9155 0 0 1 0 31.831
+                a 15.9155 15.9155 0 0 1 0 -31.831"
+                fill="none"
+                stroke="#eee"
+                stroke-width="2"/>
+              <path d="M18 2.0845
+                a 15.9155 15.9155 0 0 1 0 31.831
+                a 15.9155 15.9155 0 0 1 0 -31.831"
+                fill="none"
+                stroke="url(#gradient)"
+                stroke-width="2"
+                stroke-dasharray="0, 100"/>
+            </svg>
+            <div class="percent">75%</div>
+          </div>
+          <div class="chart-info">
+            <h3>Monthly Learning Goal</h3>
+            <p>15h of learning this month</p>
+          </div>
+        </div>
+        
+        <div class="stats-container">
+          <div class="stat-card">
+            <i class="fas fa-trophy"></i>
+            <h3>1,250</h3>
+            <p>Learning Points</p>
+          </div>
+          <div class="stat-card">
+            <i class="fas fa-book-open"></i>
+            <h3>8</h3>
+            <p>Courses Enrolled</p>
+          </div>
+          <div class="stat-card">
+            <i class="fas fa-check-circle"></i>
+            <h3>3</h3>
+            <p>Courses Completed</p>
+          </div>
+          <div class="stat-card">
+            <i class="fas fa-fire"></i>
+            <h3>12</h3>
+            <p>Day Streak</p>
+          </div>
+        </div>
+        
+        <div class="section-title">
+          <h2>Learning Path</h2>
+        </div>
+        
+        <div class="path-container">
+          <div class="path-step">
+            <div class="step-number">1</div>
+            <div class="step-content">
+              <h3>Python Fundamentals</h3>
+              <p>Variables, data types, and basic syntax</p>
+            </div>
+            <div class="step-status">Completed</div>
+          </div>
+          <div class="path-step">
+            <div class="step-number">2</div>
+            <div class="step-content">
+              <h3>Data Structures</h3>
+              <p>Lists, dictionaries, tuples, and sets</p>
+            </div>
+            <div class="step-status">Completed</div>
+          </div>
+          <div class="path-step">
+            <div class="step-number">3</div>
+            <div class="step-content">
+              <h3>Object-Oriented Programming</h3>
+              <p>Classes, objects, and inheritance</p>
+            </div>
+            <div class="step-status">In Progress</div>
+          </div>
+          <div class="path-step">
+            <div class="step-number">4</div>
+            <div class="step-content">
+              <h3>Web Development with Flask</h3>
+              <p>Building web applications with Python</p>
+            </div>
+            <div class="step-status">Not Started</div>
+          </div>
+        </div>
+        
+        <div class="section-title">
+          <h2>Recent Activity</h2>
+        </div>
+        
+        <div class="activity-list">
+          <div class="activity-item">
+            <div class="activity-icon">
+              <i class="fas fa-check"></i>
+            </div>
+            <div class="activity-details">
+              <div>Completed "Python Programming Masterclass"</div>
+              <div class="activity-date">Today, 10:45 AM</div>
+            </div>
+          </div>
+          <div class="activity-item">
+            <div class="activity-icon">
+              <i class="fas fa-medal"></i>
+            </div>
+            <div class="activity-details">
+              <div>Earned "Python Expert" badge</div>
+              <div class="activity-date">Today, 10:45 AM</div>
+            </div>
+          </div>
+          <div class="activity-item">
+            <div class="activity-icon">
+              <i class="fas fa-book"></i>
+            </div>
+            <div class="activity-details">
+              <div>Started "Data Science Essentials" course</div>
+              <div class="activity-date">Yesterday, 3:20 PM</div>
+            </div>
+          </div>
+          <div class="activity-item">
+            <div class="activity-icon">
+              <i class="fas fa-comment"></i>
+            </div>
+            <div class="activity-details">
+              <div>Asked question in "AI Fundamentals" discussion</div>
+              <div class="activity-date">June 15, 2025</div>
+            </div>
+          </div>
+          <div class="activity-item">
+            <div class="activity-icon">
+              <i class="fas fa-check"></i>
+            </div>
+            <div class="activity-details">
+              <div>Completed "HTML & CSS Basics" course</div>
+              <div class="activity-date">June 14, 2025</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Profile Page -->
+    <div class="page" id="profile-page">
+      <div class="container">
+        <div class="profile-container">
+          <div class="profile-sidebar">
+            <div class="profile-header">
+              <div class="profile-avatar">
+                <i class="fas fa-user"></i>
+              </div>
+              <div class="profile-info">
+                <h2>John Student</h2>
+                <p>Software Engineering Student</p>
+              </div>
+            </div>
+            
+            <div class="section-title">
+              <h3>Achievements</h3>
+            </div>
+            
+            <div class="badges-container">
+              <div class="badge">
+                <i class="fas fa-code"></i>
+              </div>
+              <div class="badge">
+                <i class="fas fa-robot"></i>
+              </div>
+              <div class="badge">
+                <i class="fas fa-medal"></i>
+              </div>
+              <div class="badge">
+                <i class="fas fa-book"></i>
+              </div>
+            </div>
+          </div>
+          
+          <div class="profile-main">
+            <div class="section-title">
+              <h2>My Profile</h2>
+            </div>
+            
+            <div class="card">
+              <div class="card-content">
+                <h3>Personal Information</h3>
+                <div class="profile-details">
+                  <div class="detail-item">
+                    <span>Name:</span>
+                    <span>John Student</span>
+                  </div>
+                  <div class="detail-item">
+                    <span>Email:</span>
+                    <span>john.student@example.com</span>
+                  </div>
+                  <div class="detail-item">
+                    <span>Member Since:</span>
+                    <span>January 15, 2025</span>
+                  </div>
+                  <div class="detail-item">
+                    <span>Learning Level:</span>
+                    <span>Intermediate</span>
+                  </div>
+                </div>
+                <button class="btn btn-primary" style="margin-top: 1rem;">Edit Profile</button>
+              </div>
+            </div>
+            
+            <div class="section-title">
+              <h2>Account Settings</h2>
+            </div>
+            
+            <div class="card">
+              <div class="card-content">
+                <h3>Notification Preferences</h3>
+                <div class="setting-item">
+                  <input type="checkbox" id="course-updates" checked>
+                  <label for="course-updates">Course updates and announcements</label>
+                </div>
+                <div class="setting-item">
+                  <input type="checkbox" id="learning-reminders" checked>
+                  <label for="learning-reminders">Daily learning reminders</label>
+                </div>
+                <div class="setting-item">
+                  <input type="checkbox" id="promotional">
+                  <label for="promotional">Promotional offers</label>
+                </div>
+                
+                <h3 style="margin-top: 1.5rem;">Learning Preferences</h3>
+                <div class="setting-item">
+                  <label>Preferred Difficulty:</label>
+                  <select>
+                    <option>Beginner</option>
+                    <option selected>Intermediate</option>
+                    <option>Advanced</option>
+                  </select>
+                </div>
+                <div class="setting-item">
+                  <label>Daily Learning Goal:</label>
+                  <select>
+                    <option>30 minutes</option>
+                    <option selected>1 hour</option>
+                    <option>2 hours</option>
+                    <option>3+ hours</option>
+                  </select>
+                </div>
+                
+                <button class="btn btn-primary" style="margin-top: 1rem;">Save Preferences</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer>
+    <div class="footer-container">
+      <div class="footer-column">
+        <h3>InnoLearn</h3>
+        <p>Empowering learners worldwide with interactive and personalized education experiences.</p>
+        <div class="social-links">
+          <a href="#"><i class="fab fa-facebook-f"></i></a>
+          <a href="#"><i class="fab fa-twitter"></i></a>
+          <a href="#"><i class="fab fa-linkedin-in"></i></a>
+          <a href="#"><i class="fab fa-instagram"></i></a>
+        </div>
+      </div>
+      <div class="footer-column">
+        <h3>Company</h3>
+        <ul>
+          <li><a href="#">About Us</a></li>
+          <li><a href="#">Careers</a></li>
+          <li><a href="#">Blog</a></li>
+          <li><a href="#">Press</a></li>
+        </ul>
+      </div>
+      <div class="footer-column">
+        <h3>Resources</h3>
+        <ul>
+          <li><a href="#">Help Center</a></li>
+          <li><a href="#">Tutorials</a></li>
+          <li><a href="#">Community</a></li>
+          <li><a href="#">Webinars</a></li>
+        </ul>
+      </div>
+      <div class="footer-column">
+        <h3>Legal</h3>
+        <ul>
+          <li><a href="#">Terms of Service</a></li>
+          <li><a href="#">Privacy Policy</a></li>
+          <li><a href="#">Cookie Policy</a></li>
+          <li><a href="#">Accessibility</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="copyright">
+      &copy; 2025 InnoLearn, Inc. All rights reserved.
+    </div>
+  </footer>
+
+  <!-- Sign In Modal -->
+  <div class="modal-overlay" id="signin-modal">
+    <div class="auth-modal">
+      <div class="modal-header">
+        <h2>Sign In to Your Account</h2>
+        <button class="close-modal" id="close-signin">
+          <i class="fas fa-times"></i>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="success-message" id="signin-success">
+          <i class="fas fa-check-circle"></i> You've successfully signed in!
+        </div>
+        
+        <form id="signin-form">
+          <div class="form-group">
+            <label for="signin-email">Email Address</label>
+            <input type="email" id="signin-email" class="form-control" placeholder="Enter your email" required>
+            <div class="error-message" id="email-error">Please enter a valid email address</div>
+          </div>
+          
+          <div class="form-group">
+            <label for="signin-password">Password</label>
+            <div class="password-container">
+              <input type="password" id="signin-password" class="form-control" placeholder="Enter your password" required>
+              <button type="button" class="toggle-password" id="toggle-signin-password">
+                <i class="fas fa-eye"></i>
+              </button>
+            </div>
+            <div class="error-message" id="password-error">Password must be at least 6 characters</div>
+          </div>
+          
+          <div class="remember-forgot">
+            <div class="remember-me">
+              <input type="checkbox" id="remember-me">
+              <label for="remember-me">Remember me</label>
+            </div>
+            <a href="#" class="forgot-password">Forgot password?</a>
+          </div>
+          
+          <button type="submit" class="btn btn-primary btn-block">Sign In</button>
+        </form>
+        
+        <div class="social-login">
+          <p>Or sign in with</p>
+        </div>
+        
+        <div class="social-buttons">
+          <button class="btn btn-google social-btn">
+            <i class="fab fa-google"></i> Google
+          </button>
+          <button class="btn btn-facebook social-btn">
+            <i class="fab fa-facebook-f"></i> Facebook
+          </button>
+        </div>
+        
+        <div class="switch-auth">
+          <span>Don't have an account?</span>
+          <a href="#" id="switch-to-signup">Sign Up</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Sign Up Modal -->
+  <div class="modal-overlay" id="signup-modal">
+    <div class="auth-modal">
+      <div class="modal-header">
+        <h2>Create Your Account</h2>
+        <button class="close-modal" id="close-signup">
+          <i class="fas fa-times"></i>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="success-message" id="signup-success">
+          <i class="fas fa-check-circle"></i> Your account has been created successfully!
+        </div>
+        
+        <form id="signup-form">
+          <div class="form-group">
+            <label for="signup-name">Full Name</label>
+            <input type="text" id="signup-name" class="form-control" placeholder="Enter your full name" required>
+            <div class="error-message" id="name-error">Please enter your name</div>
+          </div>
+          
+          <div class="form-group">
+            <label for="signup-email">Email Address</label>
+            <input type="email" id="signup-email" class="form-control" placeholder="Enter your email" required>
+            <div class="error-message" id="signup-email-error">Please enter a valid email address</div>
+          </div>
+          
+          <div class="form-group">
+            <label for="signup-password">Password</label>
+            <div class="password-container">
+              <input type="password" id="signup-password" class="form-control" placeholder="Create a password" required>
+              <button type="button" class="toggle-password" id="toggle-signup-password">
+                <i class="fas fa-eye"></i>
+              </button>
+            </div>
+            <div class="password-strength">
+              <div class="password-strength-fill" id="password-strength-fill"></div>
+            </div>
+            <div class="strength-text" id="strength-text">Password strength: weak</div>
+            <div class="error-message" id="signup-password-error">Password must be at least 8 characters</div>
+          </div>
+          
+          <div class="form-group">
+            <label for="signup-confirm">Confirm Password</label>
+            <div class="password-container">
+              <input type="password" id="signup-confirm" class="form-control" placeholder="Confirm your password" required>
+              <button type="button" class="toggle-password" id="toggle-confirm-password">
+                <i class="fas fa-eye"></i>
+              </button>
+            </div>
+            <div class="error-message" id="confirm-error">Passwords do not match</div>
+          </div>
+          
+          <div class="form-group">
+            <input type="checkbox" id="terms" required>
+            <label for="terms">I agree to the <a href="#" style="color: var(--primary);">Terms of Service</a> and <a href="#" style="color: var(--primary);">Privacy Policy</a></label>
+            <div class="error-message" id="terms-error">You must agree to the terms</div>
+          </div>
+          
+          <div class="form-footer">
+            <button type="submit" class="btn btn-primary btn-block">Create Account</button>
+          </div>
+        </form>
+        
+        <div class="social-login">
+          <p>Or sign up with</p>
+        </div>
+        
+        <div class="social-buttons">
+          <button class="btn btn-google social-btn">
+            <i class="fab fa-google"></i> Google
+          </button>
+          <button class="btn btn-github social-btn">
+            <i class="fab fa-github"></i> GitHub
+          </button>
+        </div>
+        
+        <div class="switch-auth">
+          <span>Already have an account?</span>
+          <a href="#" id="switch-to-signin">Sign In</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Page Navigation
+    document.addEventListener('DOMContentLoaded', function() {
+      // Set up navigation
+      const navLinks = document.querySelectorAll('.nav-link');
+      const pages = document.querySelectorAll('.page');
+      
+      // Set active page
+      function setActivePage(pageId) {
+        pages.forEach(page => {
+          page.classList.remove('active');
+          if (page.id === pageId) {
+            page.classList.add('active');
+          }
+        });
+        
+        // Update URL hash
+        window.location.hash = pageId.replace('-page', '');
+      }
+      
+      // Handle nav link clicks
+      navLinks.forEach(link => {
+        link.addEventListener('click', function(e) {
+          e.preventDefault();
+          const targetPage = this.getAttribute('data-page') + '-page';
+          setActivePage(targetPage);
+        });
+      });
+      
+      // Check URL hash on load
+      if (window.location.hash) {
+        const pageName = window.location.hash.substring(1) + '-page';
+        setActivePage(pageName);
+      }
+      
+      // Dark mode toggle
+      const themeToggle = document.querySelector('.theme-toggle');
+      themeToggle.addEventListener('click', () => {
+        document.documentElement.classList.toggle('dark-mode');
+        
+        // Change icon
+        const icon = themeToggle.querySelector('i');
+        if (document.documentElement.classList.contains('dark-mode')) {
+          icon.classList.remove('fa-moon');
+          icon.classList.add('fa-sun');
+          localStorage.setItem('darkMode', 'enabled');
+        } else {
+          icon.classList.remove('fa-sun');
+          icon.classList.add('fa-moon');
+          localStorage.setItem('darkMode', 'disabled');
+        }
+      });
+      
+      // Check for saved dark mode preference
+      if (localStorage.getItem('darkMode') === 'enabled') {
+        document.documentElement.classList.add('dark-mode');
+        const icon = themeToggle.querySelector('i');
+        icon.classList.remove('fa-moon');
+        icon.classList.add('fa-sun');
+      }
+      
+      // Chat functionality
+      const chatInput = document.querySelector('.chat-input');
+      const sendBtn = document.querySelector('.send-btn');
+      const chatBox = document.querySelector('.chat-box');
+      const quickReplies = document.querySelectorAll('.quick-replies .filter-btn');
+      
+      if (sendBtn && chatBox) {
+        const addMessage = (message, isUser = false) => {
+          const messageDiv = document.createElement('div');
+          messageDiv.classList.add('message', isUser ? 'user-message' : 'bot-message');
+          messageDiv.textContent = message;
+          chatBox.appendChild(messageDiv);
+          chatBox.scrollTop = chatBox.scrollHeight;
+        };
+        
+        const showTypingIndicator = () => {
+          const typingDiv = document.createElement('div');
+          typingDiv.classList.add('message', 'bot-message', 'typing');
+          typingDiv.innerHTML = `
+            <div class="typing-indicator">
+              <span></span>
+              <span></span>
+              <span></span>
+            </div>
+          `;
+          chatBox.appendChild(typingDiv);
+          chatBox.scrollTop = chatBox.scrollHeight;
+          return typingDiv;
+        };
+        
+        const removeTypingIndicator = (indicator) => {
+          indicator.remove();
+        };
+        
+        sendBtn.addEventListener('click', () => {
+          const message = chatInput.value.trim();
+          if (message) {
+            addMessage(message, true);
+            chatInput.value = '';
+            
+            const typingIndicator = showTypingIndicator();
+            
+            // Simulate bot response after delay
+            setTimeout(() => {
+              removeTypingIndicator(typingIndicator);
+              const responses = [
+                "Interesting question! Let me explain that concept...",
+                "I'd be happy to help with that! Here's what you need to know...",
+                "Great question! The answer involves several key points...",
+                "I understand what you're asking. Here's a detailed explanation..."
+              ];
+              const randomResponse = responses[Math.floor(Math.random() * responses.length)];
+              addMessage(randomResponse);
+            }, 1500);
+          }
+        });
+        
+        chatInput.addEventListener('keypress', (e) => {
+          if (e.key === 'Enter') {
+            sendBtn.click();
+          }
+        });
+        
+        if (quickReplies.length > 0) {
+          quickReplies.forEach(button => {
+            button.addEventListener('click', () => {
+              addMessage(button.textContent, true);
+              
+              const typingIndicator = showTypingIndicator();
+              
+              setTimeout(() => {
+                removeTypingIndicator(typingIndicator);
+                addMessage("Here's some information about " + button.textContent + "...");
+              }, 1500);
+            });
+          });
+        }
+      }
+      
+      // Auth Modals
+      const signinBtn = document.getElementById('signin-btn');
+      const signupBtn = document.getElementById('signup-btn');
+      const signinModal = document.getElementById('signin-modal');
+      const signupModal = document.getElementById('signup-modal');
+      const closeSignin = document.getElementById('close-signin');
+      const closeSignup = document.getElementById('close-signup');
+      const switchToSignup = document.getElementById('switch-to-signup');
+      const switchToSignin = document.getElementById('switch-to-signin');
+      
+      // Open Sign In Modal
+      function openSigninModal() {
+        signinModal.classList.add('active');
+        document.body.style.overflow = 'hidden';
+      }
+      
+      // Open Sign Up Modal
+      function openSignupModal() {
+        signupModal.classList.add('active');
+        document.body.style.overflow = 'hidden';
+      }
+      
+      // Close Modals
+      function closeModals() {
+        signinModal.classList.remove('active');
+        signupModal.classList.remove('active');
+        document.body.style.overflow = 'auto';
+      }
+      
+      // Event Listeners
+      signinBtn.addEventListener('click', openSigninModal);
+      signupBtn.addEventListener('click', openSignupModal);
+      closeSignin.addEventListener('click', closeModals);
+      closeSignup.addEventListener('click', closeModals);
+      switchToSignup.addEventListener('click', function(e) {
+        e.preventDefault();
+        signinModal.classList.remove('active');
+        signupModal.classList.add('active');
+      });
+      switchToSignin.addEventListener('click', function(e) {
+        e.preventDefault();
+        signupModal.classList.remove('active');
+        signinModal.classList.add('active');
+      });
+      
+      // Close modals when clicking outside
+      signinModal.addEventListener('click', function(e) {
+        if (e.target === signinModal) {
+          closeModals();
+        }
+      });
+      
+      signupModal.addEventListener('click', function(e) {
+        if (e.target === signupModal) {
+          closeModals();
+        }
+      });
+      
+      // Password Visibility Toggle
+      function setupPasswordToggle(inputId, buttonId) {
+        const passwordInput = document.getElementById(inputId);
+        const toggleButton = document.getElementById(buttonId);
+        
+        toggleButton.addEventListener('click', function() {
+          const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
+          passwordInput.setAttribute('type', type);
+          toggleButton.innerHTML = type === 'password' ? '<i class="fas fa-eye"></i>' : '<i class="fas fa-eye-slash"></i>';
+        });
+      }
+      
+      // Set up password toggles
+      setupPasswordToggle('signin-password', 'toggle-signin-password');
+      setupPasswordToggle('signup-password', 'toggle-signup-password');
+      setupPasswordToggle('signup-confirm', 'toggle-confirm-password');
+      
+      // Form Validation
+      function validateEmail(email) {
+        const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        return re.test(email);
+      }
+      
+      // Password Strength Indicator
+      const passwordInput = document.getElementById('signup-password');
+      const strengthFill = document.getElementById('password-strength-fill');
+      const strengthText = document.getElementById('strength-text');
+      
+      passwordInput.addEventListener('input', function() {
+        const password = passwordInput.value;
+        let strength = 0;
+        
+        // Check password length
+        if (password.length >= 8) strength += 25;
+        if (password.length >= 12) strength += 25;
+        
+        // Check for uppercase letters
+        if (/[A-Z]/.test(password)) strength += 15;
+        
+        // Check for numbers
+        if (/[0-9]/.test(password)) strength += 15;
+        
+        // Check for special characters
+        if (/[^A-Za-z0-9]/.test(password)) strength += 20;
+        
+        // Update strength bar
+        strengthFill.style.width = `${strength}%`;
+        
+        // Update text
+        if (strength < 40) {
+          strengthFill.style.backgroundColor = 'var(--error)';
+          strengthText.textContent = 'Password strength: weak';
+          strengthText.style.color = 'var(--error)';
+        } else if (strength < 70) {
+          strengthFill.style.backgroundColor = 'var(--warning)';
+          strengthText.textContent = 'Password strength: medium';
+          strengthText.style.color = 'var(--warning)';
+        } else {
+          strengthFill.style.backgroundColor = 'var(--success)';
+          strengthText.textContent = 'Password strength: strong';
+          strengthText.style.color = 'var(--success)';
+        }
+      });
+      
+      // Sign In Form Validation
+      const signinForm = document.getElementById('signin-form');
+      const signinEmail = document.getElementById('signin-email');
+      const signinPassword = document.getElementById('signin-password');
+      const emailError = document.getElementById('email-error');
+      const passwordError = document.getElementById('password-error');
+      const signinSuccess = document.getElementById('signin-success');
+      
+      signinForm.addEventListener('submit', function(e) {
+        e.preventDefault();
+        let isValid = true;
+        
+        // Reset errors
+        emailError.style.display = 'none';
+        passwordError.style.display = 'none';
+        
+        // Validate email
+        if (!validateEmail(signinEmail.value)) {
+          emailError.style.display = 'block';
+          isValid = false;
+        }
+        
+        // Validate password
+        if (signinPassword.value.length < 6) {
+          passwordError.style.display = 'block';
+          isValid = false;
+        }
+        
+        if (isValid) {
+          // Simulate successful sign in
+          signinSuccess.style.display = 'block';
+          
+          // Close modal after delay
+          setTimeout(() => {
+            signinSuccess.style.display = 'none';
+            closeModals();
+          }, 2000);
+        }
+      });
+      
+      // Sign Up Form Validation
+      const signupForm = document.getElementById('signup-form');
+      const signupName = document.getElementById('signup-name');
+      const signupEmail = document.getElementById('signup-email');
+      const signupPassword = document.getElementById('signup-password');
+      const signupConfirm = document.getElementById('signup-confirm');
+      const nameError = document.getElementById('name-error');
+      const signupEmailError = document.getElementById('signup-email-error');
+      const signupPasswordError = document.getElementById('signup-password-error');
+      const confirmError = document.getElementById('confirm-error');
+      const termsError = document.getElementById('terms-error');
+      const signupSuccess = document.getElementById('signup-success');
+      
+      signupForm.addEventListener('submit', function(e) {
+        e.preventDefault();
+        let isValid = true;
+        
+        // Reset errors
+        nameError.style.display = 'none';
+        signupEmailError.style.display = 'none';
+        signupPasswordError.style.display = 'none';
+        confirmError.style.display = 'none';
+        termsError.style.display = 'none';
+        
+        // Validate name
+        if (signupName.value.trim() === '') {
+          nameError.style.display = 'block';
+          isValid = false;
+        }
+        
+        // Validate email
+        if (!validateEmail(signupEmail.value)) {
+          signupEmailError.style.display = 'block';
+          isValid = false;
+        }
+        
+        // Validate password
+        if (signupPassword.value.length < 8) {
+          signupPasswordError.style.display = 'block';
+          isValid = false;
+        }
+        
+        // Validate password confirmation
+        if (signupPassword.value !== signupConfirm.value) {
+          confirmError.style.display = 'block';
+          isValid = false;
+        }
+        
+        // Validate terms
+        const termsCheckbox = document.getElementById('terms');
+        if (!termsCheckbox.checked) {
+          termsError.style.display = 'block';
+          isValid = false;
+        }
+        
+        if (isValid) {
+          // Simulate successful sign up
+          signupSuccess.style.display = 'block';
+          
+          // Close modal after delay
+          setTimeout(() => {
+            signupSuccess.style.display = 'none';
+            closeModals();
+          }, 2000);
+        }
+      });
+    });
+  </script>
+</body>
+</html>

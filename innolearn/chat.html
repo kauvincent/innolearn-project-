@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Chat with InnoBot | InnoLearn</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="shared.css">
+</head>
+<body>
+
+  <!-- Header -->
+  <header>
+    <div class="header-container">
+      <div class="logo">
+        <i class="fas fa-graduation-cap"></i>
+        <span>InnoLearn</span>
+      </div>
+      <nav>
+        <ul>
+          <li><a href="index.html">Home</a></li>
+          <li><a href="courses.html">Courses</a></li>
+          <li><a href="chat.html">Chat</a></li>
+          <li><a href="progress.html">Progress</a></li>
+        </ul>
+      </nav>
+      <div class="user-actions">
+        <button class="btn btn-outline">Sign In</button>
+        <button class="btn">Sign Up</button>
+        <div class="theme-toggle" title="Toggle dark mode">
+          <i class="fas fa-moon"></i>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- Chat Page -->
+  <div class="container">
+    <div class="section-title">
+      <h2>Chat with InnoBot</h2>
+    </div>
+    
+    <div class="chat-container">
+      <div class="chat-header">
+        <i class="fas fa-robot"></i>
+        <h3>InnoBot Assistant</h3>
+      </div>
+      <div class="chat-box">
+        <div class="message bot-message">
+          Hello! I'm InnoBot, your AI learning assistant. How can I help you today?
+        </div>
+        <div class="message user-message">
+          Can you explain machine learning concepts?
+        </div>
+        <div class="message bot-message">
+          Of course! Machine learning is a subset of artificial intelligence that focuses on building systems that learn from data. Would you like me to start with the basics or focus on a specific area like neural networks?
+        </div>
+        <div class="message bot-message typing">
+          <div class="typing-indicator">
+            <span></span>
+            <span></span>
+            <span></span>
+          </div>
+        </div>
+      </div>
+      <div class="chat-input-container">
+        <input type="text" class="chat-input" placeholder="Type your message here...">
+        <button class="send-btn"><i class="fas fa-paper-plane"></i></button>
+      </div>
+    </div>
+    
+    <div class="quick-replies">
+      <button class="filter-btn">Explain machine learning</button>
+      <button class="filter-btn">Quiz me on Python</button>
+      <button class="filter-btn">Help with my code</button>
+      <button class="filter-btn">Suggest learning path</button>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer>
+    <div class="footer-container">
+      <div class="footer-column">
+        <h3>InnoLearn</h3>
+        <p>Empowering learners worldwide with interactive and personalized education experiences.</p>
+        <div class="social-links">
+          <a href="#"><i class="fab fa-facebook-f"></i></a>
+          <a href="#"><i class="fab fa-twitter"></i></a>
+          <a href="#"><i class="fab fa-linkedin-in"></i></a>
+          <a href="#"><i class="fab fa-instagram"></i></a>
+        </div>
+      </div>
+      <div class="footer-column">
+        <h3>Company</h3>
+        <ul>
+          <li><a href="#">About Us</a></li>
+          <li><a href="#">Careers</a></li>
+          <li><a href="#">Blog</a></li>
+          <li><a href="#">Press</a></li>
+        </ul>
+      </div>
+      <div class="footer-column">
+        <h3>Resources</h3>
+        <ul>
+          <li><a href="#">Help Center</a></li>
+          <li><a href="#">Tutorials</a></li>
+          <li><a href="#">Community</a></li>
+          <li><a href="#">Webinars</a></li>
+        </ul>
+      </div>
+      <div class="footer-column">
+        <h3>Legal</h3>
+        <ul>
+          <li><a href="#">Terms of Service</a></li>
+          <li><a href="#">Privacy Policy</a></li>
+          <li><a href="#">Cookie Policy</a></li>
+          <li><a href="#">Accessibility</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="copyright">
+      &copy; 2025 InnoLearn, Inc. All rights reserved.
+    </div>
+  </footer>
+
+  <script src="scripts.js"></script>
+</body>
+</html>

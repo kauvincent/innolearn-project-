@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Course Detail | InnoLearn</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="shared.css">
+</head>
+<body>
+
+  <!-- Header -->
+  <header>
+    <div class="header-container">
+      <div class="logo">
+        <i class="fas fa-graduation-cap"></i>
+        <span>InnoLearn</span>
+      </div>
+      <nav class="desktop-menu">
+        <ul>
+          <li><a href="index.html">Home</a></li>
+          <li><a href="courses.html">Courses</a></li>
+          <li><a href="chat.html">Chat</a></li>
+          <li><a href="progress.html">Progress</a></li>
+        </ul>
+      </nav>
+      <div class="user-actions">
+        <button class="btn btn-outline" onclick="window.location.href='signin.html'">Sign In</button>
+        <button class="btn" onclick="window.location.href='signup.html'">Sign Up</button>
+        <div class="theme-toggle" title="Toggle dark mode">
+          <i class="fas fa-moon"></i>
+        </div>
+      </div>
+      <button class="mobile-menu-btn">
+        <i class="fas fa-bars"></i>
+      </button>
+    </div>
+    <div class="mobile-menu">
+      <nav>
+        <ul>
+          <li><a href="index.html">Home</a></li>
+          <li><a href="courses.html">Courses</a></li>
+          <li><a href="chat.html">Chat</a></li>
+          <li><a href="progress.html">Progress</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Course Detail Page -->
+  <div class="container">
+    <div class="course-header">
+      <div class="course-hero">
+        <img src="https://images.unsplash.com/photo-1555066931-4365d14bab8c?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" alt="Python Programming">
+        <div class="course-hero-content">
+          <h1>Python Programming Masterclass</h1>
+          <p>From beginner to advanced Python programming in one comprehensive course</p>
+          <div class="course-meta">
+            <span><i class="fas fa-user-graduate"></i> Beginner</span>
+            <span><i class="far fa-clock"></i> 8h 45m</span>
+            <span><i class="fas fa-star"></i> 4.8 (1,245 ratings)</span>
+          </div>
+          <button class="btn btn-primary">Enroll Now</button>
+        </div>
+      </div>
+    </div>
+    
+    <div class="course-content">
+      <div class="course-main">
+        <div class="course-section">
+          <h2>About This Course</h2>
+          <p>This comprehensive Python course takes you from beginner to advanced level through hands-on exercises and real-world projects. You'll learn all the core Python concepts as well as popular libraries and frameworks.</p>
+        </div>
+        
+        <div class="course-section">
+          <h2>What You'll Learn</h2>
+          <ul class="learning-list">
+            <li><i class="fas fa-check"></i> Master Python programming fundamentals</li>
+            <li><i class="fas fa-check"></i> Work with files, databases, and APIs</li>
+            <li><i class="fas fa-check"></i> Build object-oriented Python applications</li>
+            <li><i class="fas fa-check"></i> Create GUIs and web applications</li>
+            <li><i class="fas fa-check"></i> Use popular Python libraries like NumPy and Pandas</li>
+            <li><i class="fas fa-check"></i> Develop real-world projects for your portfolio</li>
+          </ul>
+        </div>
+        
+        <div class="course-section">
+          <h2>Course Content</h2>
+          <div class="accordion">
+            <div class="accordion-item">
+              <button class="accordion-header">
+                <span>Section 1: Python Basics</span>
+                <i class="fas fa-chevron-down"></i>
+              </button>
+              <div class="accordion-content">
+                <ul>
+                  <li><i class="far fa-play-circle"></i> Introduction to Python</li>
+                  <li><i class="far fa-play-circle"></i> Variables and Data Types</li>
+                  <li><i class="far fa-play-circle"></i> Operators and Expressions</li>
+                  <li><i class="far fa-play-circle"></i> Control Flow</li>
+                </ul>
+              </div>
+            </div>
+            <div class="accordion-item">
+              <button class="accordion-header">
+                <span>Section 2: Functions and Modules</span>
+                <i class="fas fa-chevron-down"></i>
+              </button>
+              <div class="accordion-content">
+                <ul>
+                  <li><i class="far fa-play-circle"></i> Defining Functions</li>
+                  <li><i class="far fa-play-circle"></i> Scope and Namespaces</li>
+                  <li><i class="far fa-play-circle"></i> Working with Modules</li>
+                </ul>
+              </div>
+            </div>
+            <!-- More sections would go here -->
+          </div>
+        </div>
+      </div>
+      
+      <div class="course-sidebar">
+        <div class="sidebar-card">
+          <h3>Course Details</h3>
+          <ul>
+            <li><i class="far fa-user"></i> 12,345 students enrolled</li>
+            <li><i class="far fa-calendar-alt"></i> Last updated 6/2025</li>
+            <li><i class="fas fa-language"></i> English</li>
+            <li><i class="far fa-closed-captioning"></i> English subtitles</li>
+          </ul>
+        </div>
+        
+        <div class="sidebar-card">
+          <h3>Instructor</h3>
+          <div class="instructor">
+            <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="Instructor">
+            <div>
+              <h4>Dr. Sarah Johnson</h4>
+              <p>Senior Python Developer</p>
+              <div class="rating">
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star-half-alt"></i>
+                <span>4.9</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer>
+    <div class="footer-container">
+      <div class="footer-column">
+        <h3>InnoLearn</h3>
+        <p>Empowering learners worldwide with interactive and personalized education experiences.</p>
+        <div class="social-links">
+          <a href="#"><i class="fab fa-facebook-f"></i></a>
+          <a href="#"><i class="fab fa-twitter"></i></a>
+          <a href="#"><i class="fab fa-linkedin-in"></i></a>
+          <a href="#"><i class="fab fa-instagram"></i></a>
+        </div>
+      </div>
+      <div class="footer-column">
+        <h3>Company</h3>
+        <ul>
+          <li><a href="#">About Us</a></li>
+          <li><a href="#">Careers</a></li>
+          <li><a href="#">Blog</a></li>
+          <li><a href="#">Press</a></li>
+        </ul>
+      </div>
+      <div class="footer-column">
+        <h3>Resources</h3>
+        <ul>
+          <li><a href="#">Help Center</a></li>
+          <li><a href="#">Tutorials</a></li>
+          <li><a href="#">Community</a></li>
+          <li><a href="#">Webinars</a></li>
+        </ul>
+      </div>
+      <div class="footer-column">
+        <h3>Legal</h3>
+        <ul>
+          <li><a href="#">Terms of Service</a></li>
+          <li><a href="#">Privacy Policy</a></li>
+          <li><a href="#">Cookie Policy</a></li>
+          <li><a href="#">Accessibility</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="copyright">
+      &copy; 2025 InnoLearn, Inc. All rights reserved.
+    </div>
+  </footer>
+
+  <script src="scripts.js"></script>
+</body>
+</html>

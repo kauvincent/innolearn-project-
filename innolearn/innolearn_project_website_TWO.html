@@ -1,0 +1,1541 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>InnoLearn - Interactive Learning Platform</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    :root {
+      --primary: #FF7B54;
+      --primary-light: #FFB26B;
+      --secondary: #939B62;
+      --dark: #2C2C2C;
+      --light: #F8F7F2;
+      --gray: #E8E8E8;
+      --success: #4CAF50;
+    }
+    
+    /* Dark mode variables */
+    :root.dark-mode {
+      --dark: #F8F7F2;
+      --light: #121212;
+      --gray: #2d2d2d;
+    }
+    
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      transition: background-color 0.3s ease, color 0.3s ease;
+    }
+    
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-color: var(--light);
+      color: var(--dark);
+      line-height: 1.6;
+    }
+    
+    /* Header */
+    header {
+      background: linear-gradient(135deg, var(--primary), var(--primary-light));
+      color: white;
+      padding: 1rem 2rem;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+    
+    .header-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 1.5rem;
+      font-weight: 700;
+    }
+    
+    .logo i {
+      font-size: 1.8rem;
+    }
+    
+    nav ul {
+      display: flex;
+      list-style: none;
+      gap: 2rem;
+    }
+    
+    nav a {
+      color: white;
+      text-decoration: none;
+      font-weight: 500;
+      padding: 0.5rem 0;
+      position: relative;
+      transition: all 0.3s ease;
+    }
+    
+    nav a:hover {
+      opacity: 0.9;
+    }
+    
+    nav a::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 0;
+      height: 2px;
+      background-color: white;
+      transition: width 0.3s ease;
+    }
+    
+    nav a:hover::after {
+      width: 100%;
+    }
+    
+    .user-actions {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+    
+    .theme-toggle {
+      cursor: pointer;
+      padding: 0.5rem;
+      margin-left: 1rem;
+      color: white;
+      font-size: 1.2rem;
+    }
+    
+    .user-actions .btn {
+      padding: 0.5rem 1rem;
+    }
+    
+    /* Main container */
+    .container {
+      max-width: 1200px;
+      margin: 2rem auto;
+      padding: 0 2rem;
+    }
+    
+    /* Hero section */
+    .hero {
+      background: linear-gradient(rgba(255, 123, 84, 0.9), rgba(255, 178, 107, 0.9)), 
+                  url('https://images.unsplash.com/photo-1522202176988-66273c2fd55f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1471&q=80');
+      background-size: cover;
+      background-position: center;
+      color: white;
+      padding: 4rem 2rem;
+      border-radius: 12px;
+      text-align: center;
+      margin-bottom: 3rem;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.1);
+    }
+    
+    .hero h1 {
+      font-size: 2.5rem;
+      margin-bottom: 1rem;
+    }
+    
+    .hero p {
+      font-size: 1.2rem;
+      max-width: 700px;
+      margin: 0 auto 2rem;
+    }
+    
+    /* Buttons */
+    .btn {
+      display: inline-block;
+      background-color: white;
+      color: var(--primary);
+      padding: 0.8rem 1.8rem;
+      border-radius: 50px;
+      text-decoration: none;
+      font-weight: 600;
+      transition: all 0.3s ease;
+      border: none;
+      cursor: pointer;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    }
+    
+    .btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 12px rgba(0,0,0,0.15);
+    }
+    
+    .btn:active {
+      transform: scale(0.98);
+    }
+    
+    .btn-primary {
+      background-color: var(--primary);
+      color: white;
+    }
+    
+    .btn-outline {
+      background-color: transparent;
+      color: white;
+      border: 2px solid white;
+    }
+    
+    .btn-outline:hover {
+      background-color: white;
+      color: var(--primary);
+    }
+    
+    /* Sections */
+    .section-title {
+      text-align: center;
+      margin-bottom: 2rem;
+      position: relative;
+    }
+    
+    .section-title h2 {
+      font-size: 2rem;
+      display: inline-block;
+      background: linear-gradient(to right, var(--primary), var(--primary-light));
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+    
+    .section-title::after {
+      content: '';
+      display: block;
+      width: 80px;
+      height: 4px;
+      background: linear-gradient(to right, var(--primary), var(--primary-light));
+      margin: 0.5rem auto 0;
+      border-radius: 2px;
+    }
+    
+    /* Cards */
+    .card-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 2rem;
+      margin-bottom: 3rem;
+    }
+    
+    .card {
+      background-color: white;
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 6px 12px rgba(0,0,0,0.05);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      position: relative;
+    }
+    
+    .card::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(transparent, rgba(0,0,0,0.7));
+      opacity: 0;
+      transition: opacity 0.3s ease;
+      pointer-events: none;
+    }
+    
+    .card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 12px 24px rgba(0,0,0,0.1);
+    }
+    
+    .card:hover::after {
+      opacity: 1;
+    }
+    
+    .card:hover .btn {
+      transform: translateX(-50%) translateY(0);
+      opacity: 1;
+    }
+    
+    .card .btn {
+      position: absolute;
+      bottom: 20px;
+      left: 50%;
+      transform: translateX(-50%) translateY(100px);
+      opacity: 0;
+      z-index: 2;
+      transition: all 0.3s ease;
+      width: calc(100% - 3rem);
+      text-align: center;
+    }
+    
+    .card-img {
+      width: 100%;
+      height: 160px;
+      object-fit: cover;
+      transition: transform 0.3s ease;
+    }
+    
+    .card:hover .card-img {
+      transform: scale(1.05);
+    }
+    
+    .card-content {
+      padding: 1.5rem;
+      position: relative;
+      z-index: 1;
+      background-color: white;
+    }
+    
+    .card h3 {
+      margin-bottom: 0.5rem;
+      font-size: 1.2rem;
+    }
+    
+    .card-meta {
+      display: flex;
+      justify-content: space-between;
+      color: #666;
+      font-size: 0.9rem;
+      margin-bottom: 1rem;
+    }
+    
+    .rating {
+      color: var(--primary-light);
+      margin-bottom: 1rem;
+    }
+    
+    .progress-container {
+      margin-bottom: 1rem;
+    }
+    
+    .progress-label {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 0.3rem;
+      font-size: 0.9rem;
+    }
+    
+    .progress-bar {
+      height: 8px;
+      background-color: var(--gray);
+      border-radius: 4px;
+      overflow: hidden;
+    }
+    
+    .progress-fill {
+      height: 100%;
+      background: linear-gradient(to right, var(--primary), var(--primary-light));
+      border-radius: 4px;
+      width: 70%;
+    }
+    
+    /* Search */
+    .search-container {
+      display: flex;
+      margin-bottom: 2rem;
+      max-width: 800px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    
+    .search-bar {
+      flex: 1;
+      padding: 0.8rem 1.2rem;
+      border: 2px solid var(--gray);
+      border-radius: 50px 0 0 50px;
+      font-size: 1rem;
+      outline: none;
+      transition: border-color 0.3s ease;
+      background-color: var(--light);
+      color: var(--dark);
+    }
+    
+    .search-bar:focus {
+      border-color: var(--primary);
+    }
+    
+    .search-btn {
+      background-color: var(--primary);
+      color: white;
+      border: none;
+      padding: 0 1.5rem;
+      border-radius: 0 50px 50px 0;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+    
+    .search-btn:hover {
+      background-color: var(--primary-light);
+    }
+    
+    /* Filters */
+    .filter-container {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.8rem;
+      justify-content: center;
+      margin-bottom: 2rem;
+    }
+    
+    .filter-btn {
+      background-color: white;
+      color: var(--dark);
+      border: 1px solid var(--gray);
+      padding: 0.5rem 1.2rem;
+      border-radius: 50px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      font-size: 0.9rem;
+    }
+    
+    .filter-btn:hover, .filter-btn.active {
+      background-color: var(--primary);
+      color: white;
+      border-color: var(--primary);
+    }
+    
+    /* Chat */
+    .chat-container {
+      background-color: white;
+      border-radius: 12px;
+      box-shadow: 0 6px 12px rgba(0,0,0,0.05);
+      overflow: hidden;
+      margin-bottom: 2rem;
+    }
+    
+    .chat-header {
+      background: linear-gradient(135deg, var(--primary), var(--primary-light));
+      color: white;
+      padding: 1rem;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    
+    .chat-header i {
+      font-size: 1.2rem;
+    }
+    
+    .chat-box {
+      height: 400px;
+      padding: 1.5rem;
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+      background-color: var(--light);
+    }
+    
+    .message {
+      max-width: 70%;
+      padding: 0.8rem 1.2rem;
+      border-radius: 12px;
+      line-height: 1.4;
+      animation: fadeIn 0.3s ease;
+    }
+    
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    
+    .bot-message {
+      background-color: var(--gray);
+      align-self: flex-start;
+      border-bottom-left-radius: 4px;
+    }
+    
+    .user-message {
+      background-color: var(--primary);
+      color: white;
+      align-self: flex-end;
+      border-bottom-right-radius: 4px;
+    }
+    
+    .typing-indicator {
+      display: flex;
+      gap: 4px;
+      padding: 12px 16px;
+    }
+    
+    .typing-indicator span {
+      width: 8px;
+      height: 8px;
+      background: #666;
+      border-radius: 50%;
+      opacity: 0.4;
+      animation: typing 1s infinite ease-in-out;
+    }
+    
+    .typing-indicator span:nth-child(2) {
+      animation-delay: 0.2s;
+    }
+    
+    .typing-indicator span:nth-child(3) {
+      animation-delay: 0.4s;
+    }
+    
+    @keyframes typing {
+      0%, 100% { opacity: 0.4; transform: translateY(0); }
+      50% { opacity: 1; transform: translateY(-3px); }
+    }
+    
+    .chat-input-container {
+      display: flex;
+      padding: 1rem;
+      border-top: 1px solid var(--gray);
+      background-color: white;
+    }
+    
+    .chat-input {
+      flex: 1;
+      padding: 0.8rem 1.2rem;
+      border: 1px solid var(--gray);
+      border-radius: 50px;
+      outline: none;
+      transition: border-color 0.3s ease;
+      background-color: var(--light);
+      color: var(--dark);
+    }
+    
+    .chat-input:focus {
+      border-color: var(--primary);
+    }
+    
+    .send-btn {
+      background-color: var(--primary);
+      color: white;
+      border: none;
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      margin-left: 0.8rem;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    
+    .send-btn:hover {
+      background-color: var(--primary-light);
+    }
+    
+    /* Quick replies */
+    .quick-replies {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.8rem;
+      margin-bottom: 2rem;
+      justify-content: center;
+    }
+    
+    /* Stats */
+    .stats-container {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 2rem;
+      margin-bottom: 3rem;
+    }
+    
+    .stat-card {
+      background-color: white;
+      padding: 1.5rem;
+      border-radius: 12px;
+      box-shadow: 0 6px 12px rgba(0,0,0,0.05);
+      text-align: center;
+      transition: transform 0.3s ease;
+    }
+    
+    .stat-card:hover {
+      transform: translateY(-5px);
+    }
+    
+    .stat-card i {
+      font-size: 2.5rem;
+      color: var(--primary);
+      margin-bottom: 1rem;
+    }
+    
+    .stat-card h3 {
+      font-size: 2rem;
+      margin-bottom: 0.5rem;
+      color: var(--primary);
+    }
+    
+    /* Progress chart */
+    .progress-chart {
+      display: flex;
+      align-items: center;
+      gap: 2rem;
+      background: white;
+      padding: 2rem;
+      border-radius: 12px;
+      box-shadow: 0 6px 12px rgba(0,0,0,0.05);
+      margin-bottom: 2rem;
+    }
+    
+    .chart {
+      position: relative;
+      width: 120px;
+      height: 120px;
+    }
+    
+    .chart svg {
+      transform: rotate(-90deg);
+    }
+    
+    .percent {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      font-size: 1.5rem;
+      font-weight: bold;
+      color: var(--primary);
+    }
+    
+    /* Leaderboard */
+    .leaderboard {
+      background-color: white;
+      border-radius: 12px;
+      box-shadow: 0 6px 12px rgba(0,0,0,0.05);
+      padding: 1.5rem;
+      margin-bottom: 3rem;
+    }
+    
+    .leaderboard-item {
+      display: flex;
+      align-items: center;
+      padding: 1rem 0;
+      border-bottom: 1px solid var(--gray);
+    }
+    
+    .leaderboard-item:last-child {
+      border-bottom: none;
+    }
+    
+    .rank {
+      font-weight: bold;
+      width: 30px;
+      text-align: center;
+      margin-right: 1rem;
+    }
+    
+    .rank-1 {
+      color: gold;
+      font-size: 1.2rem;
+    }
+    
+    .rank-2 {
+      color: silver;
+      font-size: 1.1rem;
+    }
+    
+    .rank-3 {
+      color: #cd7f32; /* bronze */
+    }
+    
+    .user-info {
+      flex: 1;
+      display: flex;
+      align-items: center;
+    }
+    
+    .avatar {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background-color: var(--gray);
+      margin-right: 1rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--dark);
+      font-weight: bold;
+    }
+    
+    .points {
+      font-weight: bold;
+      color: var(--primary);
+    }
+    
+    /* Activity */
+    .activity-list {
+      background-color: white;
+      border-radius: 12px;
+      box-shadow: 0 6px 12px rgba(0,0,0,0.05);
+      padding: 1.5rem;
+    }
+    
+    .activity-item {
+      display: flex;
+      align-items: center;
+      padding: 1rem 0;
+      border-bottom: 1px solid var(--gray);
+    }
+    
+    .activity-item:last-child {
+      border-bottom: none;
+    }
+    
+    .activity-icon {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background-color: var(--primary-light);
+      color: white;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-right: 1rem;
+      flex-shrink: 0;
+    }
+    
+    .activity-details {
+      flex: 1;
+    }
+    
+    .activity-date {
+      color: #666;
+      font-size: 0.9rem;
+    }
+    
+    /* Footer */
+    footer {
+      background-color: var(--dark);
+      color: white;
+      padding: 3rem 2rem;
+    }
+    
+    .footer-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 2rem;
+    }
+    
+    .footer-column h3 {
+      color: var(--primary-light);
+      margin-bottom: 1.5rem;
+      font-size: 1.2rem;
+    }
+    
+    .footer-column ul {
+      list-style: none;
+    }
+    
+    .footer-column li {
+      margin-bottom: 0.8rem;
+    }
+    
+    .footer-column a {
+      color: #ccc;
+      text-decoration: none;
+      transition: color 0.3s ease;
+    }
+    
+    .footer-column a:hover {
+      color: white;
+    }
+    
+    .social-links {
+      display: flex;
+      gap: 1rem;
+      margin-top: 1rem;
+    }
+    
+    .social-links a {
+      color: white;
+      background-color: rgba(255,255,255,0.1);
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: background-color 0.3s ease;
+    }
+    
+    .social-links a:hover {
+      background-color: var(--primary);
+    }
+    
+    .copyright {
+      text-align: center;
+      margin-top: 2rem;
+      padding-top: 2rem;
+      border-top: 1px solid rgba(255,255,255,0.1);
+      color: #aaa;
+      font-size: 0.9rem;
+    }
+    
+    /* Loader */
+    .loader {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0,0,0,0.5);
+      z-index: 1000;
+      justify-content: center;
+      align-items: center;
+    }
+    
+    .spinner {
+      width: 50px;
+      height: 50px;
+      border: 5px solid #f3f3f3;
+      border-top: 5px solid var(--primary);
+      border-radius: 50%;
+      animation: spin 1s linear infinite;
+    }
+    
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+    
+    /* Dark mode specific styles */
+    body.dark-mode {
+      background-color: #121212;
+      color: #f0f0f0;
+    }
+    
+    .dark-mode .card,
+    .dark-mode .leaderboard,
+    .dark-mode .activity-list,
+    .dark-mode .stat-card,
+    .dark-mode .progress-chart,
+    .dark-mode .chat-container {
+      background-color: #1e1e1e;
+      color: #f0f0f0;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+    }
+    
+    .dark-mode .filter-btn,
+    .dark-mode .search-bar,
+    .dark-mode .chat-input {
+      background-color: #2d2d2d;
+      color: #f0f0f0;
+      border-color: #444;
+    }
+    
+    .dark-mode .card-content {
+      background-color: #1e1e1e;
+    }
+    
+    .dark-mode .card-meta,
+    .dark-mode .activity-date {
+      color: #aaa;
+    }
+    
+    /* Responsive design */
+    @media (max-width: 768px) {
+      .header-container {
+        flex-direction: column;
+        gap: 1rem;
+      }
+      
+      nav ul {
+        gap: 1rem;
+        flex-wrap: wrap;
+        justify-content: center;
+      }
+      
+      .hero {
+        padding: 2rem 1rem;
+      }
+      
+      .hero h1 {
+        font-size: 2rem;
+      }
+      
+      .message {
+        max-width: 85%;
+      }
+      
+      .progress-chart {
+        flex-direction: column;
+        text-align: center;
+      }
+    }
+    
+    @media (max-width: 480px) {
+      .card-grid {
+        grid-template-columns: 1fr;
+      }
+      
+      .stats-container {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Header -->
+  <header>
+    <div class="header-container">
+      <div class="logo">
+        <i class="fas fa-graduation-cap"></i>
+        <span>InnoLearn</span>
+      </div>
+      <nav>
+        <ul>
+          <li><a href="#home">Home</a></li>
+          <li><a href="#courses">Courses</a></li>
+          <li><a href="#chat">Chat</a></li>
+          <li><a href="#progress">Progress</a></li>
+        </ul>
+      </nav>
+      <div class="user-actions">
+        <button class="btn btn-outline">Sign In</button>
+        <button class="btn">Sign Up</button>
+        <div class="theme-toggle" title="Toggle dark mode">
+          <i class="fas fa-moon"></i>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- Loader -->
+  <div class="loader">
+    <div class="spinner"></div>
+  </div>
+
+  <!-- Home Page -->
+  <div class="container" id="home">
+    <section class="hero">
+      <h1>Learn Without Limits</h1>
+      <p>Expand your career opportunities with our interactive courses and personalized learning paths.</p>
+      <div>
+        <a href="#courses" class="btn btn-primary">Explore Courses</a>
+        <a href="#chat" class="btn btn-outline">Try InnoBot</a>
+      </div>
+    </section>
+
+    <div class="section-title">
+      <h2>Featured Courses</h2>
+    </div>
+    
+    <div class="card-grid">
+      <div class="card">
+        <img src="https://images.unsplash.com/photo-1555066931-4365d14bab8c?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" alt="Coding Course" class="card-img">
+        <div class="card-content">
+          <h3>Python Programming Masterclass</h3>
+          <div class="card-meta">
+            <span><i class="far fa-clock"></i> 8h 45m</span>
+            <span><i class="fas fa-user-graduate"></i> Beginner</span>
+          </div>
+          <div class="rating">
+            <i class="fas fa-star"></i>
+            <i class="fas fa-star"></i>
+            <i class="fas fa-star"></i>
+            <i class="fas fa-star"></i>
+            <i class="fas fa-star-half-alt"></i>
+            <span>(1,245)</span>
+          </div>
+          <div class="progress-container">
+            <div class="progress-label">
+              <span>Progress</span>
+              <span>35%</span>
+            </div>
+            <div class="progress-bar">
+              <div class="progress-fill" style="width: 35%"></div>
+            </div>
+          </div>
+          <button class="btn btn-primary">Continue</button>
+        </div>
+      </div>
+      
+      <div class="card">
+        <img src="https://images.unsplash.com/photo-1633356122544-f134324a6cee?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" alt="AI Course" class="card-img">
+        <div class="card-content">
+          <h3>Artificial Intelligence Fundamentals</h3>
+          <div class="card-meta">
+            <span><i class="far fa-clock"></i> 6h 20m</span>
+            <span><i class="fas fa-user-graduate"></i> Intermediate</span>
+          </div>
+          <div class="rating">
+            <i class="fas fa-star"></i>
+            <i class="fas fa-star"></i>
+            <i class="fas fa-star"></i>
+            <i class="fas fa-star"></i>
+            <i class="far fa-star"></i>
+            <span>(892)</span>
+          </div>
+          <button class="btn btn-primary">Enroll Now</button>
+        </div>
+      </div>
+      
+      <div class="card">
+        <img src="https://images.unsplash.com/photo-1626785774573-4b799315345d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1471&q=80" alt="Web Design Course" class="card-img">
+        <div class="card-content">
+          <h3>Modern Web Design</h3>
+          <div class="card-meta">
+            <span><i class="far fa-clock"></i> 5h 10m</span>
+            <span><i class="fas fa-user-graduate"></i> Beginner</span>
+          </div>
+          <div class="rating">
+            <i class="fas fa-star"></i>
+            <i class="fas fa-star"></i>
+            <i class="fas fa-star"></i>
+            <i class="fas fa-star"></i>
+            <i class="fas fa-star"></i>
+            <span>(2,134)</span>
+          </div>
+          <button class="btn btn-primary">Enroll Now</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Courses Page -->
+  <div class="container" id="courses">
+    <div class="section-title">
+      <h2>Explore Our Courses</h2>
+    </div>
+    
+    <div class="search-container">
+      <input type="text" class="search-bar" placeholder="Search for courses, topics, or instructors...">
+      <button class="search-btn"><i class="fas fa-search"></i></button>
+    </div>
+    
+    <div class="filter-container">
+      <button class="filter-btn active">All</button>
+      <button class="filter-btn">Beginner</button>
+      <button class="filter-btn">Intermediate</button>
+      <button class="filter-btn">Advanced</button>
+      <button class="filter-btn">Programming</button>
+      <button class="filter-btn">Data Science</button>
+      <button class="filter-btn">Design</button>
+      <button class="filter-btn">Business</button>
+    </div>
+    
+    <div class="card-grid">
+      <div class="card">
+        <img src="https://images.unsplash.com/photo-1547658719-da2b51169166?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1528&q=80" alt="JavaScript Course" class="card-img">
+        <div class="card-content">
+          <h3>JavaScript for Beginners</h3>
+          <div class="card-meta">
+            <span><i class="far fa-clock"></i> 7h 15m</span>
+            <span><i class="fas fa-user-graduate"></i> Beginner</span>
+          </div>
+          <div class="rating">
+            <i class="fas fa-star"></i>
+            <i class="fas fa-star"></i>
+            <i class="fas fa-star"></i>
+            <i class="fas fa-star"></i>
+            <i class="fas fa-star-half-alt"></i>
+            <span>(1,876)</span>
+          </div>
+          <button class="btn btn-primary">Enroll Now</button>
+        </div>
+      </div>
+      
+      <div class="card">
+        <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" alt="Data Science Course" class="card-img">
+        <div class="card-content">
+          <h3>Data Science Essentials</h3>
+          <div class="card-meta">
+            <span><i class="far fa-clock"></i> 10h 30m</span>
+            <span><i class="fas fa-user-graduate"></i> Intermediate</span>
+          </div>
+          <div class="rating">
+            <i class="fas fa-star"></i>
+            <i class="fas fa-star"></i>
+            <i class="fas fa-star"></i>
+            <i class="fas fa-star"></i>
+            <i class="far fa-star"></i>
+            <span>(1,023)</span>
+          </div>
+          <button class="btn btn-primary">Enroll Now</button>
+        </div>
+      </div>
+      
+      <div class="card">
+        <img src="https://images.unsplash.com/photo-1624953587687-daf255b6b80a?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1374&q=80" alt="Mobile App Course" class="card-img">
+        <div class="card-content">
+          <h3>Mobile App Development</h3>
+          <div class="card-meta">
+            <span><i class="far fa-clock"></i> 9h 45m</span>
+            <span><i class="fas fa-user-graduate"></i> Advanced</span>
+          </div>
+          <div class="rating">
+            <i class="fas fa-star"></i>
+            <i class="fas fa-star"></i>
+            <i class="fas fa-star"></i>
+            <i class="fas fa-star"></i>
+            <i class="fas fa-star"></i>
+            <span>(756)</span>
+          </div>
+          <button class="btn btn-primary">Enroll Now</button>
+        </div>
+      </div>
+      
+      <div class="card">
+        <img src="https://images.unsplash.com/photo-1467232004584-a241de8bcf5d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1469&q=80" alt="Cloud Computing Course" class="card-img">
+        <div class="card-content">
+          <h3>Cloud Computing Basics</h3>
+          <div class="card-meta">
+            <span><i class="far fa-clock"></i> 4h 20m</span>
+            <span><i class="fas fa-user-graduate"></i> Beginner</span>
+          </div>
+          <div class="rating">
+            <i class="fas fa-star"></i>
+            <i class="fas fa-star"></i>
+            <i class="fas fa-star"></i>
+            <i class="fas fa-star-half-alt"></i>
+            <i class="far fa-star"></i>
+            <span>(542)</span>
+          </div>
+          <button class="btn btn-primary">Enroll Now</button>
+        </div>
+      </div>
+      
+      <div class="card">
+        <img src="https://images.unsplash.com/photo-1542744173-8e7e53415bb0?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" alt="Business Course" class="card-img">
+        <div class="card-content">
+          <h3>Digital Marketing Strategy</h3>
+          <div class="card-meta">
+            <span><i class="far fa-clock"></i> 5h 50m</span>
+            <span><i class="fas fa-user-graduate"></i> Intermediate</span>
+          </div>
+          <div class="rating">
+            <i class="fas fa-star"></i>
+            <i class="fas fa-star"></i>
+            <i class="fas fa-star"></i>
+            <i class="fas fa-star"></i>
+            <i class="far fa-star"></i>
+            <span>(1,342)</span>
+          </div>
+          <button class="btn btn-primary">Enroll Now</button>
+        </div>
+      </div>
+      
+      <div class="card">
+        <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" alt="UI/UX Course" class="card-img">
+        <div class="card-content">
+          <h3>UI/UX Design Principles</h3>
+          <div class="card-meta">
+            <span><i class="far fa-clock"></i> 6h 15m</span>
+            <span><i class="fas fa-user-graduate"></i> Beginner</span>
+          </div>
+          <div class="rating">
+            <i class="fas fa-star"></i>
+            <i class="fas fa-star"></i>
+            <i class="fas fa-star"></i>
+            <i class="fas fa-star"></i>
+            <i class="fas fa-star-half-alt"></i>
+            <span>(987)</span>
+          </div>
+          <button class="btn btn-primary">Enroll Now</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Chat Page -->
+  <div class="container" id="chat">
+    <div class="section-title">
+      <h2>Chat with InnoBot</h2>
+    </div>
+    
+    <div class="chat-container">
+      <div class="chat-header">
+        <i class="fas fa-robot"></i>
+        <h3>InnoBot Assistant</h3>
+      </div>
+      <div class="chat-box">
+        <div class="message bot-message">
+          Hello! I'm InnoBot, your AI learning assistant. How can I help you today?
+        </div>
+        <div class="message user-message">
+          Can you explain machine learning concepts?
+        </div>
+        <div class="message bot-message">
+          Of course! Machine learning is a subset of artificial intelligence that focuses on building systems that learn from data. Would you like me to start with the basics or focus on a specific area like neural networks?
+        </div>
+        <div class="message bot-message typing">
+          <div class="typing-indicator">
+            <span></span>
+            <span></span>
+            <span></span>
+          </div>
+        </div>
+      </div>
+      <div class="chat-input-container">
+        <input type="text" class="chat-input" placeholder="Type your message here...">
+        <button class="send-btn"><i class="fas fa-paper-plane"></i></button>
+      </div>
+    </div>
+    
+    <div class="quick-replies">
+      <button class="filter-btn">Explain machine learning</button>
+      <button class="filter-btn">Quiz me on Python</button>
+      <button class="filter-btn">Help with my code</button>
+      <button class="filter-btn">Suggest learning path</button>
+    </div>
+  </div>
+
+  <!-- Progress Page -->
+  <div class="container" id="progress">
+    <div class="section-title">
+      <h2>My Learning Progress</h2>
+    </div>
+    
+    <div class="progress-chart">
+      <div class="chart" data-percent="75">
+        <svg viewBox="0 0 36 36">
+          <path d="M18 2.0845
+            a 15.9155 15.9155 0 0 1 0 31.831
+            a 15.9155 15.9155 0 0 1 0 -31.831"
+            fill="none"
+            stroke="#eee"
+            stroke-width="2"/>
+          <path d="M18 2.0845
+            a 15.9155 15.9155 0 0 1 0 31.831
+            a 15.9155 15.9155 0 0 1 0 -31.831"
+            fill="none"
+            stroke="url(#gradient)"
+            stroke-width="2"
+            stroke-dasharray="0, 100"/>
+        </svg>
+        <div class="percent">0%</div>
+      </div>
+      <div class="chart-info">
+        <h3>Monthly Learning Goal</h3>
+        <p>15h of learning this month</p>
+      </div>
+    </div>
+    
+    <div class="stats-container">
+      <div class="stat-card">
+        <i class="fas fa-trophy"></i>
+        <h3>1,250</h3>
+        <p>Learning Points</p>
+      </div>
+      <div class="stat-card">
+        <i class="fas fa-book-open"></i>
+        <h3>8</h3>
+        <p>Courses Enrolled</p>
+      </div>
+      <div class="stat-card">
+        <i class="fas fa-check-circle"></i>
+        <h3>3</h3>
+        <p>Courses Completed</p>
+      </div>
+      <div class="stat-card">
+        <i class="fas fa-fire"></i>
+        <h3>12</h3>
+        <p>Day Streak</p>
+      </div>
+    </div>
+    
+    <div class="section-title">
+      <h2>Leaderboard</h2>
+    </div>
+    
+    <div class="leaderboard">
+      <div class="leaderboard-item">
+        <div class="rank rank-1">1</div>
+        <div class="user-info">
+          <div class="avatar">A</div>
+          <div>
+            <div>Alice Johnson</div>
+            <div class="activity-date">Data Scientist</div>
+          </div>
+        </div>
+        <div class="points">1,420 pts</div>
+      </div>
+      <div class="leaderboard-item">
+        <div class="rank rank-2">2</div>
+        <div class="user-info">
+          <div class="avatar">B</div>
+          <div>
+            <div>Bob Smith</div>
+            <div class="activity-date">Web Developer</div>
+          </div>
+        </div>
+        <div class="points">1,380 pts</div>
+      </div>
+      <div class="leaderboard-item">
+        <div class="rank rank-3">3</div>
+        <div class="user-info">
+          <div class="avatar">Y</div>
+          <div>
+            <div>You</div>
+            <div class="activity-date">Software Engineer</div>
+          </div>
+        </div>
+        <div class="points">1,250 pts</div>
+      </div>
+      <div class="leaderboard-item">
+        <div class="rank">4</div>
+        <div class="user-info">
+          <div class="avatar">C</div>
+          <div>
+            <div>Chris Taylor</div>
+            <div class="activity-date">UX Designer</div>
+          </div>
+        </div>
+        <div class="points">1,180 pts</div>
+      </div>
+      <div class="leaderboard-item">
+        <div class="rank">5</div>
+        <div class="user-info">
+          <div class="avatar">D</div>
+          <div>
+            <div>Diana Chen</div>
+            <div class="activity-date">Student</div>
+          </div>
+        </div>
+        <div class="points">1,050 pts</div>
+      </div>
+    </div>
+    
+    <div class="section-title">
+      <h2>Recent Activity</h2>
+    </div>
+    
+    <div class="activity-list">
+      <div class="activity-item">
+        <div class="activity-icon">
+          <i class="fas fa-check"></i>
+        </div>
+        <div class="activity-details">
+          <div>Completed "Python Programming Masterclass"</div>
+          <div class="activity-date">Today, 10:45 AM</div>
+        </div>
+      </div>
+      <div class="activity-item">
+        <div class="activity-icon">
+          <i class="fas fa-medal"></i>
+        </div>
+        <div class="activity-details">
+          <div>Earned "Python Expert" badge</div>
+          <div class="activity-date">Today, 10:45 AM</div>
+        </div>
+      </div>
+      <div class="activity-item">
+        <div class="activity-icon">
+          <i class="fas fa-book"></i>
+        </div>
+        <div class="activity-details">
+          <div>Started "Data Science Essentials" course</div>
+          <div class="activity-date">Yesterday, 3:20 PM</div>
+        </div>
+      </div>
+      <div class="activity-item">
+        <div class="activity-icon">
+          <i class="fas fa-comment"></i>
+        </div>
+        <div class="activity-details">
+          <div>Asked question in "AI Fundamentals" discussion</div>
+          <div class="activity-date">June 15, 2025</div>
+        </div>
+      </div>
+      <div class="activity-item">
+        <div class="activity-icon">
+          <i class="fas fa-check"></i>
+        </div>
+        <div class="activity-details">
+          <div>Completed "HTML & CSS Basics" course</div>
+          <div class="activity-date">June 14, 2025</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer>
+    <div class="footer-container">
+      <div class="footer-column">
+        <h3>InnoLearn</h3>
+        <p>Empowering learners worldwide with interactive and personalized education experiences.</p>
+        <div class="social-links">
+          <a href="#"><i class="fab fa-facebook-f"></i></a>
+          <a href="#"><i class="fab fa-twitter"></i></a>
+          <a href="#"><i class="fab fa-linkedin-in"></i></a>
+          <a href="#"><i class="fab fa-instagram"></i></a>
+        </div>
+      </div>
+      <div class="footer-column">
+        <h3>Company</h3>
+        <ul>
+          <li><a href="#">About Us</a></li>
+          <li><a href="#">Careers</a></li>
+          <li><a href="#">Blog</a></li>
+          <li><a href="#">Press</a></li>
+        </ul>
+      </div>
+      <div class="footer-column">
+        <h3>Resources</h3>
+        <ul>
+          <li><a href="#">Help Center</a></li>
+          <li><a href="#">Tutorials</a></li>
+          <li><a href="#">Community</a></li>
+          <li><a href="#">Webinars</a></li>
+        </ul>
+      </div>
+      <div class="footer-column">
+        <h3>Legal</h3>
+        <ul>
+          <li><a href="#">Terms of Service</a></li>
+          <li><a href="#">Privacy Policy</a></li>
+          <li><a href="#">Cookie Policy</a></li>
+          <li><a href="#">Accessibility</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="copyright">
+      &copy; 2025 InnoLearn, Inc. All rights reserved.
+    </div>
+  </footer>
+
+  <script>
+    // Dark mode toggle
+    const themeToggle = document.querySelector('.theme-toggle');
+    themeToggle.addEventListener('click', () => {
+      document.documentElement.classList.toggle('dark-mode');
+      
+      // Change icon
+      const icon = themeToggle.querySelector('i');
+      if (document.documentElement.classList.contains('dark-mode')) {
+        icon.classList.remove('fa-moon');
+        icon.classList.add('fa-sun');
+      } else {
+        icon.classList.remove('fa-sun');
+        icon.classList.add('fa-moon');
+      }
+    });
+    
+    // Animate progress chart
+    const chart = document.querySelector('.chart');
+    const percent = chart.querySelector('.percent');
+    const path = chart.querySelector('svg path:last-child');
+    const targetPercent = parseInt(chart.dataset.percent);
+    let currentPercent = 0;
+    
+    const animateChart = () => {
+      if (currentPercent < targetPercent) {
+        currentPercent++;
+        percent.textContent = `${currentPercent}%`;
+        const dashArray = `${currentPercent}, 100`;
+        path.setAttribute('stroke-dasharray', dashArray);
+        setTimeout(animateChart, 20);
+      }
+    };
+    
+    // Start animations when page loads
+    window.addEventListener('load', () => {
+      animateChart();
+      
+      // Simulate loading
+      const loader = document.querySelector('.loader');
+      loader.style.display = 'flex';
+      setTimeout(() => {
+        loader.style.display = 'none';
+      }, 1500);
+    });
+    
+    // Chat functionality
+    const chatInput = document.querySelector('.chat-input');
+    const sendBtn = document.querySelector('.send-btn');
+    const chatBox = document.querySelector('.chat-box');
+    const quickReplies = document.querySelectorAll('.quick-replies .filter-btn');
+    
+    const addMessage = (message, isUser = false) => {
+      const messageDiv = document.createElement('div');
+      messageDiv.classList.add('message', isUser ? 'user-message' : 'bot-message');
+      messageDiv.textContent = message;
+      chatBox.appendChild(messageDiv);
+      chatBox.scrollTop = chatBox.scrollHeight;
+    };
+    
+    const showTypingIndicator = () => {
+      const typingDiv = document.createElement('div');
+      typingDiv.classList.add('message', 'bot-message', 'typing');
+      typingDiv.innerHTML = `
+        <div class="typing-indicator">
+          <span></span>
+          <span></span>
+          <span></span>
+        </div>
+      `;
+      chatBox.appendChild(typingDiv);
+      chatBox.scrollTop = chatBox.scrollHeight;
+      return typingDiv;
+    };
+    
+    const removeTypingIndicator = (indicator) => {
+      indicator.remove();
+    };
+    
+    sendBtn.addEventListener('click', () => {
+      const message = chatInput.value.trim();
+      if (message) {
+        addMessage(message, true);
+        chatInput.value = '';
+        
+        const typingIndicator = showTypingIndicator();
+        
+        // Simulate bot response after delay
+        setTimeout(() => {
+          removeTypingIndicator(typingIndicator);
+          const responses = [
+            "Interesting question! Let me explain that concept...",
+            "I'd be happy to help with that! Here's what you need to know...",
+            "Great question! The answer involves several key points...",
+            "I understand what you're asking. Here's a detailed explanation..."
+          ];
+          const randomResponse = responses[Math.floor(Math.random() * responses.length)];
+          addMessage(randomResponse);
+        }, 1500);
+      }
+    });
+    
+    chatInput.addEventListener('keypress', (e) => {
+      if (e.key === 'Enter') {
+        sendBtn.click();
+      }
+    });
+    
+    quickReplies.forEach(button => {
+      button.addEventListener('click', () => {
+        addMessage(button.textContent, true);
+        
+        const typingIndicator = showTypingIndicator();
+        
+        setTimeout(() => {
+          removeTypingIndicator(typingIndicator);
+          addMessage("Here's some information about " + button.textContent + "...");
+        }, 1500);
+      });
+    });
+  </script>
+</body>
+</html>
+
+
+/*ndex.html - Homepage
+
+courses.html - Courses listing page
+
+chat.html - Chatbot interface
+
+progress.html - User progress dashboard
+
+shared.css - Shared stylesheet
+
+scripts.js - Shared JavaScript */
